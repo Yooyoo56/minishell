@@ -184,23 +184,21 @@ static void	fill_redirs_and_remove_them(t_cmd* cmd, char *cmd_str)
 		cmd->redirs[i]->op = op;
 		cmd->redirs[i]->file = (char *)ft_calloc(1, sizeof(char));
 		nb_spaces = 0;
-		while (ft_isspace(cmd_str[op_index + nb_spaces + 1]))
+		while (cmd_str[op_index + nb_spaces + 1] && ft_isspace(cmd_str[op_index + nb_spaces + 1]))
 			nb_spaces++;
 		j = 0;
-		while (!ft_isspace(cmd_str[op_index + nb_spaces + j + 1]))
+		while (cmd_str[op_index + nb_spaces + j + 1] && !ft_isspace(cmd_str[op_index + nb_spaces + j + 1]))
 		{
 			cmd->redirs[i]->file = (char *)ft_realloc(cmd->redirs[i]->file,
 											(j + 1) * sizeof(char), (j + 2) * sizeof(char));
 			cmd->redirs[i]->file[j] = cmd_str[op_index + nb_spaces + j + 1];
 			j++;
 		}
-		cmd->redirs[i]->file[j] = '\0';
 		erase_chars_(cmd_str, op_index - (op == DOUBLE_INF || op == DOUBLE_SUP),
 			1 + (op == DOUBLE_INF || op == DOUBLE_SUP) + nb_spaces + ft_strlen(cmd->redirs[i]->file));
 		op = get_op(cmd_str, &op_index);
 		i++;
 	}
-	cmd->redirs[i] = NULL;
 }
 
 static void	fill_cmd(t_cmd *cmd, char *cmd_str)
@@ -212,13 +210,13 @@ static void	fill_cmd(t_cmd *cmd, char *cmd_str)
 
 	words = ft_split(cmd_str, ' ');
 	cmd->nom = ft_strdup(words[0]);
-	is_minus = (words[1] && words[1][0] == '-');
+	is_minus = (words[0] && words[1] && words[1][0] == '-');
 	cmd->flag = NULL;
 	if (is_minus)
 		cmd->flag = ft_strdup(words[1]);
 	j = is_minus + 1;
 	nb_args = 0;
-	while (words[nb_args + j])
+	while (words[0] && words[nb_args + j])
 		nb_args++;
 	cmd->args = (char **)ft_calloc(nb_args + 1, sizeof(char *));
 	cmd->args[0] = NULL;

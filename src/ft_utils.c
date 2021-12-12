@@ -48,15 +48,15 @@ void	print_cmd(t_cmd cmd)
 {
 	int	i;
 
-	printf("{name : %s", cmd.nom);
+	printf("{name: %s", cmd.nom);
 	if (cmd.flag)
-		printf(", flag : %s", cmd.flag);
+		printf(", flag: %s", cmd.flag);
 	i = 0;
 	if (cmd.args[i])
 		printf(", ");
 	while (cmd.args[i])
 	{
-		printf("arg %d : %s", i, cmd.args[i]);
+		printf("arg %d: %s", i, cmd.args[i]);
 		if (cmd.args[i + 1])
 			printf(", ");
 		i++;

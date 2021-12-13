@@ -51,7 +51,7 @@ void	print_cmds(t_cmd **cmd);
 void	print_header(void);
 
 /* parsing */
-// ft_generate_new_line.c (manages quotes and $)
+// ft_generate_new_line.c (manages quotes, $ and non printables)
 char	*generate_new_line(const char *line);
 // ft_generate_nl_utils.c
 char	*ft_strchri(char *s, char c, int start, int stop);

@@ -19,7 +19,7 @@ int	main(void)
 
 	print_header();
 	line = readline("$> ");
-	while (ft_strncmp(line, "exit", 4) != 0 || !ft_strlen(line))
+	while (ft_strncmp(line, "exit", 4) != 0)
 	{
 		if (ft_strlen(line))
 		{

@@ -25,58 +25,74 @@ void	free_2d_array(void **arr)
 	free(arr);
 }
 
-void	free_cmd(t_cmd *cmd)
+void	free_cmds(t_cmd **cmds)
 {
 	int	i;
+	int	j;
 
-	if (cmd->nom)
-		free(cmd->nom);
-	if (cmd->flag)
-		free(cmd->flag);
-	free_2d_array((void **)cmd->args);
 	i = 0;
-	while (cmd->redirs[i])
+	while (cmds[i])
 	{
-		free(cmd->redirs[i]->file);
-		free(cmd->redirs[i]);
+		if (cmds[i]->nom)
+			free(cmds[i]->nom);
+		if (cmds[i]->flag)
+			free(cmds[i]->flag);
+		if (cmds[i]->args)
+			free_2d_array((void **)cmds[i]->args);
+		j = 0;
+		while (cmds[i]->redirs && cmds[i]->redirs[j])
+		{
+			free(cmds[i]->redirs[j]->file);
+			free(cmds[i]->redirs[j]);
+			j++;
+		}
+		free(cmds[i]->redirs);
+		free(cmds[i]);
 		i++;
 	}
-	free(cmd->redirs);
 }
 
-void	print_cmd(t_cmd cmd)
+static void	print_redir(t_redir *redir)
+{
+	printf("op: ");
+	if (redir->op == INF)
+		printf("<");
+	else if (redir->op == DOUBLE_INF)
+		printf("<<");
+	else if (redir->op == SUP)
+		printf(">");
+	else if (redir->op == DOUBLE_SUP)
+		printf(">>");
+	printf(", file: %s}", redir->file);
+}
+
+void	print_cmds(t_cmd **cmds)
 {
 	int	i;
+	int	j;
 
-	printf("{name: %s", cmd.nom);
-	if (cmd.flag)
-		printf(", flag: %s", cmd.flag);
 	i = 0;
-	if (cmd.args[i])
-		printf(", ");
-	while (cmd.args[i])
+	while (cmds[i])
 	{
-		printf("arg %d: %s", i, cmd.args[i]);
-		if (cmd.args[i + 1])
-			printf(", ");
+		printf("{name: %s", cmds[i]->nom);
+		if (cmds[i]->flag)
+			printf(", flag: %s", cmds[i]->flag);
+		j = 0;
+		while (cmds[i]->args[j])
+		{
+			printf(", arg %d: %s", j, cmds[i]->args[j]);
+			j++;
+		}
+		j = 0;
+		while (cmds[i]->redirs[j])
+		{
+			printf(", {redir %d: ", j);
+			print_redir(cmds[i]->redirs[j]);
+			j++;
+		}
+		printf("}\n");
 		i++;
 	}
-	i = 0;
-	while (cmd.redirs[i])
-	{
-		printf(", redirs[%d]: op: ", i);
-		if (cmd.redirs[i]->op == INF)
-			printf("<");
-		else if (cmd.redirs[i]->op == DOUBLE_INF)
-			printf("<<");
-		else if (cmd.redirs[i]->op == SUP)
-			printf(">");
-		else if (cmd.redirs[i]->op == DOUBLE_SUP)
-			printf(">>");
-		printf(", file: %s", cmd.redirs[i]->file);
-		i++;
-	}
-	printf("}\n");
 }
 
 void	print_header(void)

@@ -12,12 +12,12 @@
 
 #include "../../include/minishell.h"
 
-char	*ft_strchri(char *s, char c, int start)
+char	*ft_strchri(char *s, char c, int start, int stop)
 {
 	int	i;
 
 	i = start;
-	while (1)
+	while (stop == -1 || i < stop)
 	{
 		if (s[i] == c)
 			return (&s[i]);
@@ -25,6 +25,7 @@ char	*ft_strchri(char *s, char c, int start)
 			return (NULL);
 		i++;
 	}
+	return (NULL);
 }
 
 void	erase_char(char *str, int index)
@@ -39,7 +40,7 @@ void	erase_char(char *str, int index)
 	}
 }
 
-void	erase_chars_(char *str, int start, int nb_chars)
+void	erase_str(char *str, int start, int nb_chars)
 {
 	int	i;
 
@@ -95,7 +96,7 @@ void	replace_non_printables(t_cmd *cmd)
 	}
 }
 
-t_op		get_op(char *line, int *op_index)
+t_op	get_op(char *line, int *op_index)
 {
 	int	i;
 

@@ -1,7 +1,7 @@
 #include "../../include/minishell.h"
 
 /* Parsing errors:
- * si il y a un delimiteur a la fin de line (espaces compris) (ex : "cat >     ")
+ * si il y a un delimiteur a la fin d'une commande (espaces compris) (ex : "cat >     ")
  * il ne doit pas y avoir plus de 2 caracteres sur un operateur (ex : "<<<" est une parsing error)
  * nombre impair de simple/double quotes
  * malloc size (if (ft_strlen(line) > SIZE_MAX) then error)

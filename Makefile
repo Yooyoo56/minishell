@@ -2,6 +2,7 @@
 SRC_DIR	= src/
 SRCS	= main.c \
 		  ft_utils.c \
+		  parsing/ft_generate_new_line.c \
 		  parsing/ft_parse_cmds.c \
 		  parsing/ft_parsing_utils.c \
 		  parsing/ft_parsing_err.c

@@ -46,21 +46,23 @@ typedef struct s_cmd
 
 // ft_utils.c
 void	free_2d_array(void **arr);
-void	free_cmd(t_cmd *cmd);
-void	print_cmd(t_cmd cmd);
+void	free_cmds(t_cmd **cmds);
+void	print_cmds(t_cmd **cmd);
 void	print_header(void);
 
 /* parsing */
+// ft_generate_new_line.c (manages quotes and $)
+char	*generate_new_line(const char *line);
 // ft_parse_cmds.c
-void	parsing(char *line);
+t_cmd	**parsing(const char *line);
 // ft_parse_combines.c
 t_op	get_op(char *line, int *op_nbr);
 // ft_parsing_err.c
 int		parsing_error(char *line);
 // ft_parse_utils.c
-char	*ft_strchri(char *s, char c, int start);
+char	*ft_strchri(char *s, char c, int start, int stop);
 void	erase_char(char *str, int index);
-void	erase_chars_(char *str, int start, int nb_chars);
+void	erase_str(char *str, int start, int nb_chars);
 int		is_operator(char c);
 void	replace_non_printables_in_str(char *str);
 void	replace_non_printables(t_cmd *cmd);

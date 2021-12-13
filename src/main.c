@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:41:05 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/12 22:11:31 by whazami          ###   ########.fr       */
+/*   Updated: 2021/12/13 08:41:15 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ int	main(void)
 		line = readline("$> ");
 	}
 	free(line);
-	system("leaks minishell");
+	//system("leaks minishell");
 	return (0);
 }

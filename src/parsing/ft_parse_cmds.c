@@ -18,7 +18,6 @@ static void	fill_redirs_and_remove_them(t_cmd *cmd, char *s)
 	int		i;
 	int		j;
 	int		nb_;
-	int		d;
 
 	cmd->redirs = (t_redir **)ft_calloc(1, sizeof(t_redir *));
 	i = 0;
@@ -34,10 +33,11 @@ static void	fill_redirs_and_remove_them(t_cmd *cmd, char *s)
 		j = 0;
 		cmd->redirs[i]->file = (char *)ft_calloc(ft_strlen(s), sizeof(char));
 		while (s[opi + nb_ + ++j] && (ft_isalnum(s[opi + nb_ + j])
-				|| s[opi + nb_ + j] == '_' || s[opi + nb_ + j] == '.'))
+				|| s[opi + nb_ + j] == '_' || s[opi + nb_ + j] == '-'
+				|| s[opi + nb_ + j] == '.' || s[opi + nb_ + j] == ','))
 			cmd->redirs[i]->file[j - 1] = s[opi + nb_ + j];
-		d = (get_op(s, &opi) == DOUBLE_INF || get_op(s, &opi) == DOUBLE_SUP);
-		erase_str(s, opi - d, 1 + d + nb_ + ft_strlen(cmd->redirs[i++]->file));
+		j = (get_op(s, &opi) == DOUBLE_INF || get_op(s, &opi) == DOUBLE_SUP);
+		erase_str(s, opi - j, 1 + j + nb_ + ft_strlen(cmd->redirs[i++]->file));
 	}
 }
 

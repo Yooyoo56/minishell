@@ -12,34 +12,6 @@
 
 #include "../../include/minishell.h"
 
-char	*ft_strchri(char *s, char c, int start, int stop)
-{
-	int	i;
-
-	i = start;
-	while (stop == -1 || i < stop)
-	{
-		if (s[i] == c)
-			return (&s[i]);
-		if (!s[i])
-			return (NULL);
-		i++;
-	}
-	return (NULL);
-}
-
-void	erase_char(char *str, int index)
-{
-	int	i;
-
-	i = index;
-	while (str[i])
-	{
-		str[i] = str[i + 1];
-		i++;
-	}
-}
-
 void	erase_str(char *str, int start, int nb_chars)
 {
 	int	i;
@@ -58,7 +30,7 @@ int	is_operator(char c)
 	return (c == '|' || c == '<' || c == '>');
 }
 
-void	replace_non_printables_in_str(char *str)
+static void	replace_non_printables_in_str(char *str)
 {
 	int	i;
 

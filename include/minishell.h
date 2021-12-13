@@ -53,18 +53,18 @@ void	print_header(void);
 /* parsing */
 // ft_generate_new_line.c (manages quotes and $)
 char	*generate_new_line(const char *line);
+// ft_generate_nl_utils.c
+char	*ft_strchri(char *s, char c, int start, int stop);
+void	erase_char(char *str, int index);
+char	get_non_printable(char c);
 // ft_parse_cmds.c
 t_cmd	**parsing(const char *line);
-// ft_parse_combines.c
-t_op	get_op(char *line, int *op_nbr);
 // ft_parsing_err.c
 int		parsing_error(char *line);
 // ft_parse_utils.c
-char	*ft_strchri(char *s, char c, int start, int stop);
-void	erase_char(char *str, int index);
 void	erase_str(char *str, int start, int nb_chars);
 int		is_operator(char c);
-void	replace_non_printables_in_str(char *str);
 void	replace_non_printables(t_cmd *cmd);
+t_op	get_op(char *line, int *op_nbr);
 
 #endif

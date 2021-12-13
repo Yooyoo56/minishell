@@ -62,14 +62,8 @@ static void	manage_replacements(char *line, int index[2], char quote)
 			index[1]--;
 			i--;
 		}
-		else if (line[i] == ' ')
-			line[i] = ESPACE;
-		else if (line[i] == '<')
-			line[i] = INF_;
-		else if (line[i] == '>')
-			line[i] = SUP_;
-		else if (line[i] == '|')
-			line[i] = PIPE_;
+		else
+			line[i] = get_non_printable(line[i]);
 	}
 }
 

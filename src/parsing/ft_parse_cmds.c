@@ -68,6 +68,44 @@ static void	fill_cmd(t_cmd *cmd, char *cmd_str)
 	free_2d_array((void **)words);
 }
 
+static void	replace_non_printables_in_str(char *str)
+{
+	int	i;
+
+	if (str)
+	{
+		i = 0;
+		while (str[i])
+		{
+			if (str[i] == ESPACE)
+				str[i] = ' ';
+			else if (str[i] == INF_)
+				str[i] = '<';
+			else if (str[i] == SUP_)
+				str[i] = '>';
+			else if (str[i] == PIPE_)
+				str[i] = '|';
+			else if (str[i] == END_)
+				str[i] = '\0';
+			i++;
+		}
+	}
+}
+
+static void	replace_non_printables(t_cmd *cmd)
+{
+	int	i;
+
+	replace_non_printables_in_str(cmd->nom);
+	replace_non_printables_in_str(cmd->flag);
+	i = 0;
+	while (cmd->args[i])
+	{
+		replace_non_printables_in_str(cmd->args[i]);
+		i++;
+	}
+}
+
 t_cmd	**parsing(const char *line)
 {
 	t_cmd	**cmds;

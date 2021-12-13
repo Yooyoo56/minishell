@@ -30,44 +30,6 @@ int	is_operator(char c)
 	return (c == '|' || c == '<' || c == '>');
 }
 
-static void	replace_non_printables_in_str(char *str)
-{
-	int	i;
-
-	if (str)
-	{
-		i = 0;
-		while (str[i])
-		{
-			if (str[i] == ESPACE)
-				str[i] = ' ';
-			else if (str[i] == INF_)
-				str[i] = '<';
-			else if (str[i] == SUP_)
-				str[i] = '>';
-			else if (str[i] == PIPE_)
-				str[i] = '|';
-			else if (str[i] == END_)
-				str[i] = '\0';
-			i++;
-		}
-	}
-}
-
-void	replace_non_printables(t_cmd *cmd)
-{
-	int	i;
-
-	replace_non_printables_in_str(cmd->nom);
-	replace_non_printables_in_str(cmd->flag);
-	i = 0;
-	while (cmd->args[i])
-	{
-		replace_non_printables_in_str(cmd->args[i]);
-		i++;
-	}
-}
-
 t_op	get_op(char *line, int *op_index)
 {
 	int	i;

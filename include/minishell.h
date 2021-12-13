@@ -64,7 +64,6 @@ int		parsing_error(char *line);
 // ft_parse_utils.c
 void	erase_str(char *str, int start, int nb_chars);
 int		is_operator(char c);
-void	replace_non_printables(t_cmd *cmd);
 t_op	get_op(char *line, int *op_nbr);
 
 #endif

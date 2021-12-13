@@ -24,7 +24,6 @@ static void	fill_redirs_and_remove_them(t_cmd *cmd, char *s)
 	i = 0;
 	while (get_op(s, &opi) != NONE)
 	{
-		write(1, "hey\n", 3);
 		cmd->redirs = (t_redir **)ft_realloc(cmd->redirs,
 				(i + 1) * sizeof(t_redir *), (i + 2) * sizeof(t_redir *));
 		cmd->redirs[i] = (t_redir *)ft_calloc(1, sizeof(t_redir));
@@ -81,10 +80,6 @@ t_cmd	**parsing(const char *line)
 	//	return ;
 	new_line = generate_new_line(line);
 	cmds_strs = ft_split(new_line, '|');
-	printf("new_line: %p\n", new_line);
-	printf("strs: %p\n", cmds_strs);
-	printf("cmds_strs 0: %p\n", cmds_strs[0]);
-	printf("cmds_strs 1: %p\n", cmds_strs[1]);
 	free(new_line);
 	cmds = NULL;
 	i = -1;

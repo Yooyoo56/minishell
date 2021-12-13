@@ -50,6 +50,7 @@ void	free_cmds(t_cmd **cmds)
 		free(cmds[i]);
 		i++;
 	}
+	free(cmds);
 }
 
 static void	print_redir(t_redir *redir)

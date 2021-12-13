@@ -111,7 +111,6 @@ static void	manage_dollars(char **line, int index[2])
 	len_var_expands = 0;
 	while (ft_strchri(*line, '$', dollar_index + len_var_expands, index[1]))
 	{
-		write(1, "AAAAAAAAAAAAAA\n", 16);
 		dollar_index = ft_strchri(*line, '$',
 				dollar_index + len_var_expands, index[1]) - *line;
 		if (dollar_index < 0)
@@ -135,11 +134,9 @@ char	*generate_new_line(const char *line)
 	char	quote;
 
 	new_line = ft_strdup(line);
-	printf("new_line: %p\n", new_line);
 	index[0] = 0;
 	while (ft_strchri(new_line, '\'', index[0], -1))
 	{
-		write(1, "AAAAAAAAAAAAAA\n", 16);
 		index[1] = ft_strchri(new_line, '\'', index[0], -1) - new_line + 1;
 		manage_dollars(&new_line, index);
 		index[0] = ft_strchri(new_line, '\'', index[1], -1) - new_line + 1;
@@ -150,7 +147,6 @@ char	*generate_new_line(const char *line)
 	while (ft_strchri(new_line, '\'', index[1], -1)
 		|| ft_strchri(new_line, '"', index[1], -1))
 	{
-		write(1, "AAAAAAAAAAAAAA\n", 16);
 		find_start_end(new_line, index, &quote);
 		manage_replacements(new_line, index, quote);
 		index[1]++;

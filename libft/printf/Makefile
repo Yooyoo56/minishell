@@ -20,7 +20,7 @@ all:		${NAME}
 
 ${NAME}:	${OBJS}
 			$(call libft_make, libft.a)
-			@echo "\033[95m\nCompiling printf...\033[0m"
+			@echo "\033[95m\nCompiling printf 🐳...\033[0m"
 			${AR} ${NAME} ${OBJS}
 			ranlib ${NAME}
 
@@ -29,7 +29,7 @@ clean:
 			${MAKE} only_clean
 
 only_clean:
-			@echo "\033[91m\nclean printf\033[0m"
+			@echo "\033[91m\nclean printf 🐕 \033[0m"
 			${RM} ${OBJS} ${OBJS_B}
 
 fclean:		only_clean

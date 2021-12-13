@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:21:58 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/10 13:22:08 by whazami          ###   ########.fr       */
+/*   Updated: 2021/12/13 17:57:58 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ t_cmd	**parsing(const char *line)
 	int		i;
 
 	// Yooyoo's part
-	//if (parsing_error(line))
-	//	return ;
+	if (parsing_error(line))
+		return (NULL);
 	new_line = generate_new_line(line);
 	cmds_strs = ft_split(new_line, '|');
 	free(new_line);

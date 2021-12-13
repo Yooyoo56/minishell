@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_parsing_err.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/13 17:46:18 by ytak              #+#    #+#             */
+/*   Updated: 2021/12/13 18:02:49 by ytak             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 /* Parsing errors:
@@ -9,7 +21,101 @@
  * se renseigner si les caracteres qu'on ne doit pas gerer sont vus comme une erreur
  */
 
-// delimiter : les pipes ne doivent pas coller.
+//cheverons error: >>> or <<<
+int	err_chevrons(const char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '<' || line[i] == '>')
+		{
+			if (line[i + 1] == '<' || line[i + 1] == '>')
+			{
+				if (line[i + 2] == '<' || line[i + 2] == '>')
+				{
+					printf("Error! Chevrons error\n");
+					return (1);
+				}
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	err_chevrons_reverse(const char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '<')
+		{
+			if (line[i + 1] == '>')
+			{
+				printf("Error! chevrons reverse error!\n");
+				return (1);
+			}
+		}
+		else if (line[i] == '>')
+		{
+			if (line[i + 1] == '<')
+			{
+				printf("Error! chevrons reverse error!\n");
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	err_pipes(const char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '|')
+		{
+			if (line[i + 1] == '|')
+			{
+				printf("Error! Pipes error!\n");
+				return (1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	parsing_error(const char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (is_operator(line[i]))
+		{
+			if (err_chevrons(&line[i]))
+				return (1);
+			if (err_chevrons_reverse(&line[i]))
+				return (1);
+			if (err_pipes(&line[i]))
+				return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+/*
+// need to create ||| or <<< or >>>>>>>> =====> error!!
 // /!\ Attention : '><' et '<>' sont des erreurs (espace entre eux inclus)
 int	parsing_error(char *line)
 {
@@ -33,3 +139,4 @@ int	parsing_error(char *line)
 	}
 	return (0);
 }
+*/

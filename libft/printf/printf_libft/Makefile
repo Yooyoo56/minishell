@@ -15,12 +15,12 @@ RM		= rm -f
 all:		${NAME}
 
 ${NAME}:	${OBJS}
-			@echo "\033[95m\nCompiling printf's libft...\033[0m"
+			@echo "\033[95m\nCompiling printf's libft ☃️ ...\033[0m"
 			${AR} ${NAME} ${OBJS}
 			ranlib ${NAME}
 
 clean:
-			@echo "\033[91m\nclean printf's libft\033[0m"
+			@echo "\033[91m\nclean printf's libft🐻 \033[0m"
 			${RM} ${OBJS}
 
 fclean:		clean

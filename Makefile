@@ -1,3 +1,14 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: ytak <marvin@42.fr>                        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/12/13 14:49:45 by ytak              #+#    #+#              #
+#    Updated: 2021/12/13 16:20:56 by ytak             ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
 SRC_DIR	= src/
 SRCS	= main.c \
@@ -14,7 +25,7 @@ OBJS	:= $(addprefix ${OBJ_DIR}, ${OBJS})
 
 NAME	= minishell
 
-CC		= gcc #-g -fsanitize=address
+CC		= gcc -g3 -fsanitize=address
 CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 
@@ -32,7 +43,7 @@ all:	${NAME}
 
 ${NAME}:	${OBJS}
 			$(call libft_make, libft.a)
-			@echo "\033[95m\nGenerating executable...\033[0m"
+			@echo "\033[95m\nGenerating executable 🐥...\033[0m"
 			${CC} -o ${NAME} ${OBJS} -Llibft -lft -lreadline -ltermcap -L /Users/$(USER)/.brew/opt/readline/lib
 
 clean:	only_clean

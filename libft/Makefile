@@ -33,7 +33,7 @@ all:		${NAME}
 ${NAME}:	${OBJS} ${OBJS_B} $(addprefix ${GNL_DIR}, ${OBJS_GNL})
 			$(call printf_make, libftprintf.a)
 			cp printf/libftprintf.a ${NAME}
-			@echo "\033[95m\nCompiling libft...\033[0m"
+			@echo "\033[95m\nCompiling libft 🤓...\033[0m"
 			${AR} ${NAME} ${OBJS} ${OBJS_B} $(addprefix ${GNL_DIR}, ${OBJS_GNL})
 			ranlib ${NAME}
 
@@ -42,7 +42,7 @@ clean:
 			${MAKE} only_clean
 
 only_clean:
-			@echo "\033[91m\nclean libft\033[0m"
+			@echo "\033[91m\nclean libft 🐙 \033[0m"
 			${RM} ${OBJS} ${OBJS_B} $(addprefix ${GNL_DIR}, ${OBJS_GNL})
 
 fclean:		only_clean

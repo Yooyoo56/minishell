@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/03 18:28:21 by whazami          ###   ########.fr       */
+/*   Updated: 2021/12/13 17:59:01 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,16 @@ char	*ft_strchri(char *s, char c, int start, int stop);
 void	erase_char(char *str, int index);
 char	get_non_printable(char c);
 // ft_parse_cmds.c
+// changed the const char to CONST
 t_cmd	**parsing(const char *line);
+
 // ft_parsing_err.c
-int		parsing_error(char *line);
+int		err_chevrons(const char *line);
+int		err_chevrons_reverse(const char *line);
+int		err_pipes(const char *line);
+int		parsing_error(const char *line);
+
+
 // ft_parse_utils.c
 void	erase_str(char *str, int start, int nb_chars);
 int		is_operator(char c);

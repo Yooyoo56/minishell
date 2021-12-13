@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:41:05 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/13 08:41:15 by whazami          ###   ########.fr       */
+/*   Updated: 2021/12/13 17:58:43 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ int	main(void)
 		{
 			add_history(line);
 			cmds = parsing(line);
-			print_cmds(cmds);
-			free_cmds(cmds);
+			if (cmds)
+			{
+				print_cmds(cmds);
+				free_cmds(cmds);
+			}
 		}
 		free(line);
 		line = readline("$> ");

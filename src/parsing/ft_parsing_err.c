@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 17:46:18 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/13 18:02:49 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/14 22:14:28 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,27 +93,79 @@ int	err_pipes(const char *line)
 	return (0);
 }
 
-int	parsing_error(const char *line)
+// create the errors " + '  or  ' + "
+//int	err_quotes_combine
+
+//if there's a odd number of double / simple quotes ==> error
+//DOESNT WORRRRRK WHHHYYYYYYYYYY
+int	odd_double_quotes(const char *line)
 {
 	int	i;
-
+	int	cpt;
+	
 	i = 0;
+	cpt = 0;
 	while (line[i])
 	{
-		if (is_operator(line[i]))
+		if (line[i] == '"')
 		{
-			if (err_chevrons(&line[i]))
-				return (1);
-			if (err_chevrons_reverse(&line[i]))
-				return (1);
-			if (err_pipes(&line[i]))
-				return (1);
+			cpt++;
+		}
+		i++;
+	}
+	if (cpt % 2 == 1)
+	{
+		printf("Error! double quotes error!\n");
+		return (1);
+	}
+	return (0);
+}
+
+// il faut faire ca demain
+/*
+int	odd_simple_quotes(const char *line)
+{
+	int	i;
+	int	cpt;
+
+	i = 0;
+	cpt = 0;
+	while (line[i])
+	{
+		while (ft_isspace(line[i]))
+		{
+			i++;
+			if (line[i] == '\'')
+			{
+				cpt++;
+				if (cpt % 2 == 1)
+				{
+					printf("Error! simple quotes error\n");
+					return (1);
+				}
+			}
 		}
 		i++;
 	}
 	return (0);
 }
+*/
 
+
+int	parsing_error(const char *line)
+{
+	if (err_chevrons(line))
+		return (1);
+	if (err_chevrons_reverse(line))
+		return (1);
+	if (err_pipes(line))
+		return (1);
+	if (odd_double_quotes(line))
+		return (1);
+	if (odd_simple_quotes(line))
+		return (1);
+	return (0);
+}
 /*
 // need to create ||| or <<< or >>>>>>>> =====> error!!
 // /!\ Attention : '><' et '<>' sont des erreurs (espace entre eux inclus)

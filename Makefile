@@ -6,7 +6,7 @@
 #    By: ytak <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 14:49:45 by ytak              #+#    #+#              #
-#    Updated: 2021/12/13 16:20:56 by ytak             ###   ########.fr        #
+#    Updated: 2021/12/15 18:15:52 by ytak             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ OBJS	:= $(addprefix ${OBJ_DIR}, ${OBJS})
 
 NAME	= minishell
 
-CC		= gcc -g3 -fsanitize=address
+CC		= gcc #-g3 -fsanitize=address
 CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 
@@ -36,7 +36,7 @@ endef
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c
 		mkdir -p ${OBJ_DIR}
 		mkdir -p ${OBJ_DIR}/parsing	
-		${CC} ${CFLAGS} -c $< -o $@ -I /Users/$(USER)/.brew/opt/readline/include
+		${CC} ${CFLAGS} -c $< -o $@ -I /Users/$(USER)/homebrew/opt/readline/include
 
 
 all:	${NAME}
@@ -44,7 +44,7 @@ all:	${NAME}
 ${NAME}:	${OBJS}
 			$(call libft_make, libft.a)
 			@echo "\033[95m\nGenerating executable 🐥...\033[0m"
-			${CC} -o ${NAME} ${OBJS} -Llibft -lft -lreadline -ltermcap -L /Users/$(USER)/.brew/opt/readline/lib
+			${CC} -o ${NAME} ${OBJS} -Llibft -lft -lreadline -ltermcap -L /Users/$(USER)/homebrew/opt/readline/lib
 
 clean:	only_clean
 		$(call libft_make, clean)

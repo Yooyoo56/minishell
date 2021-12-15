@@ -6,12 +6,19 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:41:05 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/13 17:58:43 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/15 18:15:26 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
+/*
+void	handler(int sig)
+{
+	if (sig == SIGINT)
+		printf("haha\n");
+}
+*/
 int	main(void)
 {
 	char		*line;
@@ -19,8 +26,10 @@ int	main(void)
 
 	print_header();
 	line = readline("$> ");
+//	signal(SIGINT, handler);
 	while (ft_strncmp(line, "exit", 4) != 0)
 	{
+		//line = readline("$> ");
 		if (ft_strlen(line))
 		{
 			add_history(line);
@@ -35,6 +44,6 @@ int	main(void)
 		line = readline("$> ");
 	}
 	free(line);
-	//system("leaks minishell");
+//	system("leaks minishell");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 05:45:38 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/14 16:23:06 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/15 13:14:52 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,11 @@ static void	find_start_end(char *line, int index[2], char *quote)
 	cpt = 0;
 	while (line[i])
 	{
-		if(line[i] == '\'')//if (line[i] == '\'' || line[i] == '"')
+		if (line[i] == '\'' || line[i] == '"')
 		{
 			cpt++;
 			index[0] = i;
 			*quote = line[i];
-			if (cpt % 2 == 1)
-			{
-				printf("Errrorororororororor\n");
-			//	return (1);
-			}
 			break ;
 		}
 		i++;

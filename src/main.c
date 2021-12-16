@@ -12,11 +12,13 @@
 
 #include "../include/minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
 	char		*line;
 	t_cmd		**cmds;
 
+	(void)argc;
+	(void)argv;
 	print_header();
 	line = readline("$> ");
 	while (ft_strncmp(line, "exit", 4) != 0)
@@ -24,11 +26,11 @@ int	main(void)
 		if (ft_strlen(line))
 		{
 			add_history(line);
-			cmds = parsing(line);
+			cmds = parsing(line, env);
 			if (cmds)
 			{
-				//print_cmds(cmds);
-				manage_cmds(cmds);
+				print_cmds(cmds);
+				manage_cmds(cmds, env);
 				free_cmds(cmds);
 			}
 		}
@@ -36,6 +38,6 @@ int	main(void)
 		line = readline("$> ");
 	}
 	free(line);
-	//system("leaks minishell");
+	system("leaks minishell");
 	return (0);
 }

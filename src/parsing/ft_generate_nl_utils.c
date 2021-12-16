@@ -52,3 +52,19 @@ char	get_non_printable(char c)
 		return (PIPE_);
 	return (c);
 }
+
+char	*ft_getenv(char *var_name, char **env)
+{
+	int		i;
+	int		equal_pos;
+
+	i = 0;
+	while (env[i])
+	{
+		equal_pos = ft_strchr(env[i], '=') - env[i];
+		if (ft_strncmp(env[i], var_name, equal_pos) == 0)
+			return (ft_substr(env[i], equal_pos + 1, ft_strlen(env[i])));
+		i++;
+	}
+	return (ft_strdup(""));
+}

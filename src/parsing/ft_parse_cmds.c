@@ -106,7 +106,7 @@ static void	replace_non_printables(t_cmd *cmd)
 	}
 }
 
-t_cmd	**parsing(const char *line)
+t_cmd	**parsing(const char *line, char **env)
 {
 	t_cmd	**cmds;
 	char	**cmds_strs;
@@ -116,7 +116,7 @@ t_cmd	**parsing(const char *line)
 	// Yooyoo's part
 	if (parsing_error(line))
 		return (NULL);
-	new_line = generate_new_line(line);
+	new_line = generate_new_line(line, env);
 	cmds_strs = ft_split(new_line, '|');
 	free(new_line);
 	cmds = NULL;

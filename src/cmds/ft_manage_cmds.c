@@ -31,7 +31,19 @@ static void    ft_echo(t_cmd *cmd)
         printf("\n");
 }
 
-void    manage_cmds(t_cmd **cmds)
+static void	ft_env(char **env)
+{
+	int i;
+
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
+}
+
+void    manage_cmds(t_cmd **cmds, char **env)
 {
     int i;
 
@@ -40,6 +52,8 @@ void    manage_cmds(t_cmd **cmds)
     {
         if (ft_strncmp(cmds[i]->nom, "echo", ft_strlen(cmds[i]->nom)) == 0)
             ft_echo(cmds[i]);
+        else if (ft_strncmp(cmds[i]->nom, "env", ft_strlen(cmds[i]->nom)) == 0)
+            ft_env(env);
         i++;
     }
 }

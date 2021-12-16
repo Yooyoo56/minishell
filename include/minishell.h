@@ -52,14 +52,15 @@ void	print_header(void);
 
 /* parsing */
 // ft_generate_new_line.c (manages quotes, $ and non printables)
-char	*generate_new_line(const char *line);
+char	*generate_new_line(const char *line, char **env);
 // ft_generate_nl_utils.c
 char	*ft_strchri(char *s, char c, int start, int stop);
 void	erase_char(char *str, int index);
 char	get_non_printable(char c);
+char	*ft_getenv(char *var_name, char **env);
 // ft_parse_cmds.c
 // changed the const char to CONST
-t_cmd	**parsing(const char *line);
+t_cmd	**parsing(const char *line, char **env);
 // ft_parsing_err.c
 int		err_chevrons(const char *line);
 int		err_chevrons_reverse(const char *line);
@@ -78,6 +79,6 @@ int		is_operator(char c);
 t_op	get_op(char *line, int *op_nbr);
 
 /* cmds */
-void    manage_cmds(t_cmd **cmds);
+void    manage_cmds(t_cmd **cmds, char **env);
 
 #endif

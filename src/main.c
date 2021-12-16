@@ -23,13 +23,13 @@ int	main(int argc, char **argv, char **env)
 	line = readline("$> ");
 	while (ft_strncmp(line, "exit", 4) != 0)
 	{
-		if (ft_strlen(line))
+		if (!is_empty(line))
 		{
 			add_history(line);
 			cmds = parsing(line, env);
 			if (cmds)
 			{
-				print_cmds(cmds);
+				//print_cmds(cmds);
 				manage_cmds(cmds, env);
 				free_cmds(cmds);
 			}

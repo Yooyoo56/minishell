@@ -47,6 +47,7 @@ typedef struct s_cmd
 // ft_utils.c
 void	free_2d_array(void **arr);
 void	free_cmds(t_cmd **cmds);
+int		is_empty(char *str);
 void	print_cmds(t_cmd **cmd);
 void	print_header(void);
 
@@ -79,6 +80,10 @@ int		is_operator(char c);
 t_op	get_op(char *line, int *op_nbr);
 
 /* cmds */
-void    manage_cmds(t_cmd **cmds, char **env);
+// ft_cmds_utils.c
+int		get_var_id(char *var_name, char **env);
+int		identifier_is_valid(char *identifier);
+// ft_manage_cmds.c
+void	manage_cmds(t_cmd **cmds, char **env);
 
 #endif

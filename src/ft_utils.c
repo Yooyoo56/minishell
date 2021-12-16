@@ -53,6 +53,22 @@ void	free_cmds(t_cmd **cmds)
 	free(cmds);
 }
 
+int	is_empty(char *str)
+{
+	int	i;
+
+	if (ft_strlen(str) == 0)
+		return (1);
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isspace(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 static void	print_redir(t_redir *redir)
 {
 	printf("op: ");

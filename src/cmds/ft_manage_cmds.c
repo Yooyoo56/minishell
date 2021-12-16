@@ -42,6 +42,35 @@ static void	ft_env(char **env)
 	}
 }
 
+static void	ft_unset(t_cmd *cmd, char **env)
+{
+	int	i;
+	int	j;
+	int	var_id;
+
+	if (cmd->args)
+	{
+		i = -1;
+		while (cmd->args[++i])
+		{
+			var_id = get_var_id(cmd->args[i], env);
+			if (var_id != -1 && ft_strncmp(cmd->args[i], "_",
+					ft_strlen(cmd->args[i])))
+			{
+				j = var_id;
+				while (env[j])
+				{
+					env[j] = env[j + 1];
+					j++;
+				}
+			}
+			else if (!identifier_is_valid(cmd->args[i]))
+				printf("bash: unset: `%s': not a valid identifier\n",
+					cmd->args[i]);
+		}
+	}
+}
+
 void	manage_cmds(t_cmd **cmds, char **env)
 {
 	int	i;
@@ -53,6 +82,8 @@ void	manage_cmds(t_cmd **cmds, char **env)
 			ft_echo(cmds[i]);
 		else if (ft_strncmp(cmds[i]->nom, "env", ft_strlen(cmds[i]->nom)) == 0)
 			ft_env(env);
+		else if (ft_strncmp(cmds[i]->nom, "unset", ft_strlen(cmds[i]->nom)) == 0)
+			ft_unset(cmds[i], env);
 		i++;
 	}
 }

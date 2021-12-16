@@ -67,52 +67,55 @@ static void	manage_replacements(char *line, int index[2], char quote)
 	}
 }
 
-static int	env_var_to_val(char *var_name, char *var_val, char **line, int d_i)
+static int	env_var_to_val(char *var, char **env, char **line, int *indexes[3])
 {
+	char	*var_expands;
 	char	*tmps[3];
 	int		sizes[2];
 
-	tmps[1] = ft_substr(*line, 0, d_i);
-	tmps[2] = ft_substr(*line, d_i + ft_strlen(var_name) + 1, ft_strlen(*line));
+	var_expands = ft_getenv(var, env);
+	tmps[1] = ft_substr(*line, 0, *indexes[2]);
+	tmps[2] = ft_substr(*line, *indexes[2] + ft_strlen(var) + 1,
+			ft_strlen(*line));
 	sizes[0] = ft_strlen(*line);
-	tmps[0] = ft_strjoin(tmps[1], var_val);
+	tmps[0] = ft_strjoin(tmps[1], var_expands);
 	free(*line);
 	*line = ft_strjoin(tmps[0], tmps[2]);
-	sizes[1] = ft_strlen(*line);
 	free(tmps[0]);
+	sizes[1] = ft_strlen(*line);
+	*indexes[1] += sizes[1] - sizes[0];
 	free(tmps[1]);
 	free(tmps[2]);
-	return (sizes[1] - sizes[0]);
+	sizes[0] = ft_strlen(var_expands);
+	free(var_expands);
+	return (sizes[0]);
 }
 
 static void	manage_dollars(char **line, int index[2], char **env)
 {
 	char	*var_name;
-	char	*var_val;
 	int		dollar_i;
 	int		i;
+	int		len_var_expands;
 
-	dollar_i = index[0] - 1;
-	var_val = (char *)ft_calloc(1, sizeof(char));
-	while (ft_strchri(*line, '$', dollar_i + ft_strlen(var_val) + 1, index[1]))
+	dollar_i = index[0];
+	len_var_expands = 0;
+	while (ft_strchri(*line, '$', dollar_i + len_var_expands, index[1]))
 	{
 		dollar_i = ft_strchri(*line, '$',
-				dollar_i + ft_strlen(var_val) + 1, index[1]) - *line;
+				dollar_i + len_var_expands, index[1]) - *line;
 		if (dollar_i < 0)
 			break ;
 		i = dollar_i;
 		var_name = (char *)ft_calloc(index[1] - index[0] + 2, sizeof(char));
 		while (++i < index[1] && (ft_isalnum((*line)[i]) || (*line)[i] == '_'))
 			var_name[i - (dollar_i + 1)] = (*line)[i];
+		len_var_expands = 1;
 		if (ft_strlen(var_name))
-		{
-			free(var_val);
-			var_val = ft_getenv(var_name, env);
-			index[1] += env_var_to_val(var_name, var_val, line, dollar_i);
-		}
+			len_var_expands = env_var_to_val(var_name,
+					env, line, (int*[3]){&index[0], &index[1], &dollar_i});
 		free(var_name);
 	}
-	free(var_val);
 }
 
 char	*generate_new_line(const char *line, char **env)

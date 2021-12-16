@@ -57,13 +57,20 @@ char	*ft_getenv(char *var_name, char **env)
 {
 	int		i;
 	int		equal_pos;
+	char	*str_before_equal;
 
 	i = 0;
 	while (env[i])
 	{
 		equal_pos = ft_strchr(env[i], '=') - env[i];
-		if (ft_strncmp(env[i], var_name, equal_pos) == 0)
+		str_before_equal = ft_substr(env[i], 0, equal_pos);
+		if (ft_strncmp(str_before_equal, var_name,
+				ft_strlen(var_name) + ft_strlen(str_before_equal)) == 0)
+		{
+			free(str_before_equal);
 			return (ft_substr(env[i], equal_pos + 1, ft_strlen(env[i])));
+		}
+		free(str_before_equal);
 		i++;
 	}
 	return (ft_strdup(""));

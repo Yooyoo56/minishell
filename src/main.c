@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:41:05 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/16 10:55:42 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/16 15:15:42 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(void)
 			cmds = parsing(line);
 			if (cmds)
 			{
-				//print_cmds(cmds);
+				print_cmds(cmds);
 				manage_cmds(cmds);
 				free_cmds(cmds);
 			}

@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 17:46:18 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/16 12:27:14 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/16 16:56:02 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
  * se renseigner si les caracteres qu'on ne doit pas gerer sont vus comme une erreur
  */
 
-
-
 //cheverons error: >>> or <<<
-int	err_chevrons(const char *line)
+int	err_multiple_chevrons(const char *line)
 {
 	int	i;
 
@@ -37,7 +35,7 @@ int	err_chevrons(const char *line)
 			{
 				if (line[i + 2] == '<' || line[i + 2] == '>')
 				{
-					printf("Error! Chevrons error\n");
+					printf("bash: syntax error near unexpected tken `newline' \n");
 					return (1);
 				}
 			}
@@ -58,7 +56,7 @@ int	err_chevrons_reverse(const char *line)
 		{
 			if (line[i + 1] == '>')
 			{
-				printf("Error! chevrons reverse error!\n");
+				printf("bash: syntax error near unexpected tken `newline' \n");
 				return (1);
 			}
 		}
@@ -66,7 +64,7 @@ int	err_chevrons_reverse(const char *line)
 		{
 			if (line[i + 1] == '<')
 			{
-				printf("Error! chevrons reverse error!\n");
+				printf("bash: syntax error near unexpected tken `newline' \n");
 				return (1);
 			}
 		}
@@ -105,9 +103,7 @@ int	err_odd_double_quotes(const char *line)
 	while (line[i])
 	{
 		if (line[i] == '"')
-		{
 			cpt++;
-		}
 		i++;
 	}
 	if (cpt % 2 == 1)
@@ -130,9 +126,7 @@ int	err_odd_simple_quotes(const char *line)
 	while (line[i])
 	{
 		if (line[i] == '\'')
-		{
 			cpt++;
-		}
 		i++;
 	}
 	if (cpt % 2 == 1)
@@ -150,29 +144,62 @@ int	err_pipe_space(const char *line)
 
 	i = 0;
 	end = ft_strlen(line);
-	if (line[0] == '|')
-	{
-		printf("bash: syntax error near unexpected token `|'\n");
-		return (1);
-	}
+	
 	while (line[i])
 	{
 		if (line[i] == '|')
 		{
-			if (line[end] == ft_isspace(line[i]))
+			i++;
+			while (line[i] == ' ')
+				i++;
+			if (line[i] == '|' || line[i] == '\0')
 			{
-				printf("Error! no empty inputs after pipe!\n");
+				printf("bash: syntax error near unexpected token `|'\n");
 				return (1);
 			}
-			i++;
 		}
 		i++;
 	}
 	return (0);
 }
 
-// "cat >   " ==> error
-// NOT WORKING!!!!!!!!!
+int	err_combine_quotes(const char *line)
+{
+	int i;
+	int	quote;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '"' || line[i] == '\'')
+		{
+			quote = line[i];
+			i++;
+			if (line[i] == '\0')
+			{
+				printf("🎃 Yoohooo you found out the error\n");
+				return (1);
+			}
+			while (line[i])
+			{
+				if (line[i] == quote)
+					break ;
+				if (line[i + 1] == '\0')
+				{
+					printf("🎃 Yoohooo you found out the error\n");
+					return (1);
+				}
+				i++;
+			}
+		}
+		if (line[i])
+			i++;
+	}
+	return (0);
+}
+
+
+
 
 int	err_chevrons_space(const char *line)
 {
@@ -183,12 +210,14 @@ int	err_chevrons_space(const char *line)
 	{
 		if (line[i] == '>' || line[i] == '<')
 		{
+			if (line[i + 1] == '>' || line[i + 1] == '<')
+				i++;
 			i++;
 			while (line[i] == ' ')
 				i++;
-			if (line[i] == '>' || line[i] == '<' || line[i] == '\0')
+			if (is_operator(line[i]) || line[i] == '\0')
 			{
-				printf("bash: syntax error near unexpected tken 'newline' \n");
+				printf("bash: syntax error near unexpected tken `newline' \n");
 				return (1);
 			}
 		}
@@ -196,61 +225,6 @@ int	err_chevrons_space(const char *line)
 	}
 	return (0);
 }
-
-/*
-//boucle infinite
-int	err_space_chevrons(const char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		while (is_operator(line[i]))
-		{
-			i++;
-			if (ft_isspace(line[i]))
-			{
-				printf("Error!!!!!!!!No space at the end of the line\n");
-				return (1);
-			}
-			i++;
-		}
-	}
-	return (1);
-}
-*/
-
-//If there is a space between the cat " >   > hello" => error
-//If there is a space between the pipe "cat  | | hello" => error
-int	err_pipe_inside_space(const char *line)
-{
-	int	i;
-	int	op_cpt;
-
-	i = 0;
-	op_cpt = 0;
-	while (line[i])
-	{
-		if (line[i] == '|')
-		{
-			op_cpt++;
-		}
-		i++;
-	}
-	while (op_cpt != 0)
-	{
-		if (ft_isspace(line[i]))
-		{
-			printf("NOOOO bash:syntax error near unexpected token '|'\n");
-			return (1);
-		}
-		i++;
-	}
-	return (0);
-
-}
-
 
 // if you see \  => error
 int	err_slash(const char *line)
@@ -296,7 +270,7 @@ int	parsing_error(const char *line)
 		printf("Error! Malloc error! Line too long\n");
 		return (1);
 	}
-	if (err_chevrons(line))
+	if (err_multiple_chevrons(line))
 		return (1);
 	if (err_chevrons_reverse(line))
 		return (1);
@@ -314,9 +288,8 @@ int	parsing_error(const char *line)
 		return (1);
 	if (err_pipe_space(line))
 		return (1);
-
-	//	if (err_pipe_inside_space(line))
-//		return (1);
+	if (err_combine_quotes(line))
+		return (1);
 	return (0);
 }
 /*

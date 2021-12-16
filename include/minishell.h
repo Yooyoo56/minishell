@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/16 16:55:59 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/16 17:32:45 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ t_cmd	**parsing(const char *line);
 int		err_multiple_chevrons(const char *line);
 int		err_chevrons_reverse(const char *line);
 int		err_pipes(const char *line);
-int		err_odd_double_quotes(const char *line);
-int		err_odd_simple_quotes(const char *line);
 int		err_slash(const char *line);
 int		err_semicolon(const char *line);
 int		err_pipe_space(const char *line);

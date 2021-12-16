@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/15 17:44:05 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/16 10:16:08 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		err_odd_simple_quotes(const char *line);
 int		err_slash(const char *line);
 int		err_semicolon(const char *line);
 int		err_pipe_space(const char *line);
+int		err_pipe_inside_space(const char *line);
 int		err_chevrons_space(const char *line);
 int		parsing_error(const char *line);
 

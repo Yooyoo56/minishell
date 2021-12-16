@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 17:46:18 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/15 18:13:55 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/16 12:27:14 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	err_pipes(const char *line)
 		{
 			if (line[i + 1] == '|')
 			{
-				printf("Error! Pipes error!\n");
+				printf("bash: syntax error near unexpected token `||'\n");
 				return (1);
 			}
 		}
@@ -113,7 +113,7 @@ int	err_odd_double_quotes(const char *line)
 	if (cpt % 2 == 1)
 	{
 //		line = readline("dquote> ");
-		printf("Error! double quotes error!\n");
+		printf("Error! quotes error!\n");
 //		free((void *)line);
 		return (1);
 	}
@@ -137,9 +137,7 @@ int	err_odd_simple_quotes(const char *line)
 	}
 	if (cpt % 2 == 1)
 	{
-		//line = readline("quote> ");
-		printf("Error! simple quotes err\n");
-		//free((void *)line);
+		printf("Error! quotes error!\n");
 		return (1);
 	}
 	return (0);
@@ -152,47 +150,43 @@ int	err_pipe_space(const char *line)
 
 	i = 0;
 	end = ft_strlen(line);
+	if (line[0] == '|')
+	{
+		printf("bash: syntax error near unexpected token `|'\n");
+		return (1);
+	}
 	while (line[i])
 	{
-		if (line[0] == '|')
-		{
-			printf("bash: syntax error near unexpected token `|'\n");
-			return (1);
-		}
 		if (line[i] == '|')
 		{
-			i++;
 			if (line[end] == ft_isspace(line[i]))
 			{
-//				line = readline("> ");
 				printf("Error! no empty inputs after pipe!\n");
-//				free((void *)line);
 				return (1);
 			}
+			i++;
 		}
 		i++;
 	}
 	return (0);
 }
 
-
-//If there is a space between the cat " >   > hello" => error
-
-
 // "cat >   " ==> error
+// NOT WORKING!!!!!!!!!
+
 int	err_chevrons_space(const char *line)
 {
 	int i;
-	int	end;
 
 	i = 0;
-	end = ft_strlen(line);
 	while (line[i])
 	{
 		if (line[i] == '>' || line[i] == '<')
 		{
 			i++;
-			if (line[end] == ft_isspace(line[i]))
+			while (line[i] == ' ')
+				i++;
+			if (line[i] == '>' || line[i] == '<' || line[i] == '\0')
 			{
 				printf("bash: syntax error near unexpected tken 'newline' \n");
 				return (1);
@@ -227,6 +221,37 @@ int	err_space_chevrons(const char *line)
 }
 */
 
+//If there is a space between the cat " >   > hello" => error
+//If there is a space between the pipe "cat  | | hello" => error
+int	err_pipe_inside_space(const char *line)
+{
+	int	i;
+	int	op_cpt;
+
+	i = 0;
+	op_cpt = 0;
+	while (line[i])
+	{
+		if (line[i] == '|')
+		{
+			op_cpt++;
+		}
+		i++;
+	}
+	while (op_cpt != 0)
+	{
+		if (ft_isspace(line[i]))
+		{
+			printf("NOOOO bash:syntax error near unexpected token '|'\n");
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+
+}
+
+
 // if you see \  => error
 int	err_slash(const char *line)
 {
@@ -237,9 +262,7 @@ int	err_slash(const char *line)
 	{
 		if (line[i] == '\\')
 		{
-//			line = readline("> ");
 			printf("Error! no \\ in the line\n");
-//			free((void *)line);
 			return (1);
 		}
 		i++;
@@ -257,9 +280,7 @@ int	err_semicolon(const char *line)
 	{
 		if (line[i] == ';')
 		{
-		//	line = readline("");
 			printf("Error! no ; in the line\n");
-		//	free((void *)line);
 			return (1);
 		}
 		i++;
@@ -269,6 +290,12 @@ int	err_semicolon(const char *line)
 
 int	parsing_error(const char *line)
 {
+	//malloc error
+	if (ft_strlen(line) > 1000000000)
+	{
+		printf("Error! Malloc error! Line too long\n");
+		return (1);
+	}
 	if (err_chevrons(line))
 		return (1);
 	if (err_chevrons_reverse(line))
@@ -287,6 +314,9 @@ int	parsing_error(const char *line)
 		return (1);
 	if (err_pipe_space(line))
 		return (1);
+
+	//	if (err_pipe_inside_space(line))
+//		return (1);
 	return (0);
 }
 /*

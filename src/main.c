@@ -12,13 +12,6 @@
 
 #include "../include/minishell.h"
 
-/*
-void	handler(int sig)
-{
-	if (sig == SIGINT)
-		printf("haha\n");
-}
-*/
 int	main(void)
 {
 	char		*line;
@@ -26,17 +19,16 @@ int	main(void)
 
 	print_header();
 	line = readline("$> ");
-//	signal(SIGINT, handler);
 	while (ft_strncmp(line, "exit", 4) != 0)
 	{
-		//line = readline("$> ");
 		if (ft_strlen(line))
 		{
 			add_history(line);
 			cmds = parsing(line);
 			if (cmds)
 			{
-				print_cmds(cmds);
+				//print_cmds(cmds);
+				manage_cmds(cmds);
 				free_cmds(cmds);
 			}
 		}
@@ -44,6 +36,6 @@ int	main(void)
 		line = readline("$> ");
 	}
 	free(line);
-//	system("leaks minishell");
+	//system("leaks minishell");
 	return (0);
 }

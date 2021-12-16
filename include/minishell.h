@@ -60,7 +60,6 @@ char	get_non_printable(char c);
 // ft_parse_cmds.c
 // changed the const char to CONST
 t_cmd	**parsing(const char *line);
-
 // ft_parsing_err.c
 int		err_chevrons(const char *line);
 int		err_chevrons_reverse(const char *line);
@@ -73,11 +72,12 @@ int		err_pipe_space(const char *line);
 int		err_pipe_inside_space(const char *line);
 int		err_chevrons_space(const char *line);
 int		parsing_error(const char *line);
-
-
 // ft_parse_utils.c
 void	erase_str(char *str, int start, int nb_chars);
 int		is_operator(char c);
 t_op	get_op(char *line, int *op_nbr);
+
+/* cmds */
+void    manage_cmds(t_cmd **cmds);
 
 #endif

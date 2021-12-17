@@ -131,6 +131,8 @@ char	*generate_new_line(const char *line, char **env)
 		index[1] = ft_strchri(new_line, '\'', index[0], -1) - new_line + 1;
 		manage_dollars(&new_line, index, env);
 		index[0] = ft_strchri(new_line, '\'', index[1], -1) - new_line + 1;
+		if (index[0] < 0)
+			index[0] = index[1];
 	}
 	index[1] = ft_strlen(new_line);
 	manage_dollars(&new_line, index, env);

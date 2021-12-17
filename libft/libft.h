@@ -73,5 +73,6 @@ long	power(int nb, int pow);
 void	*ft_realloc(void *old_ptr, size_t old_len, size_t new_len);
 int		ft_strcmp(char *s1, char *s2);
 void	ft_swap(void *a, void *b, size_t len);
+char	*ft_strchr_end(const char *s, int c);
 
 #endif

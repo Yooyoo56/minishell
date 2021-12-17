@@ -48,7 +48,7 @@ int	identifier_is_valid(char *identifier, int is_export)
 	i = 0;
 	while (identifier[i])
 	{
-		if (is_export && identifier[i] == '=')
+		if (is_export && identifier[i] == '=' && i > 0)
 			return (1);
 		if (!ft_isalnum(identifier[i]) && identifier[i] != '_')
 			return (0);
@@ -78,11 +78,11 @@ void	print_sorted_env(char **env)
 				ft_swap(&c[i[1]], &c[i[2]], sizeof(char *));
 	}
 	while (--i[1])
-	{
-		printf("declare -x %.*s=\"%s\"\n", (int)(ft_strchr(c[i[1]], '=')
+		printf("declare -x %.*s%c%c%s%c\n", (int)(ft_strchr_end(c[i[1]], '=')
 				- c[i[1]] - (c[i[1]][0] == DEL)), &c[i[1]][c[i[1]][0] == DEL],
-			ft_strchr(c[i[1]], '=') + 1);
-	}
+			'=' * (!!ft_strchr(c[i[1]], '=')),
+			'"' * (!!ft_strchr(c[i[1]], '=')), ft_strchr_end(c[i[1]], '=') + 1,
+			'"' * (!!ft_strchr(c[i[1]], '=')));
 	free_2d_array((void **)c);
 }
 

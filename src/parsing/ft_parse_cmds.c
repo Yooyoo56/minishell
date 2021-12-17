@@ -114,8 +114,8 @@ t_cmd	**parsing(const char *line, char **env)
 	int		i;
 
 	// Yooyoo's part
-	if (parsing_error(line))
-		return (NULL);
+	/*if (parsing_error(line))
+		return (NULL);*/
 	new_line = generate_new_line(line, env);
 	cmds_strs = ft_split(new_line, '|');
 	free(new_line);

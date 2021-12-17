@@ -36,7 +36,8 @@ static void	ft_env(char **env)
 	i = 0;
 	while (env[i])
 	{
-		printf("%s\n", env[i]);
+		if (ft_strchr(env[i], '='))
+			printf("%s\n", env[i] + (env[i][0] == DEL));
 		i++;
 	}
 }
@@ -51,7 +52,10 @@ static void	ft_unset(t_cmd *cmd, char **env)
 	while (cmd->args[i])
 	{
 		var_id = get_var_id(cmd->args[i], env);
-		if (var_id != -1 && ft_strncmp(cmd->args[i], "_",
+		if (!identifier_is_valid(cmd->args[i], 0))
+			printf("bash: unset: `%s': not a valid identifier\n",
+				cmd->args[i]);
+		else if (var_id != -1 && ft_strncmp(cmd->args[i], "_",
 				ft_strlen(cmd->args[i])))
 		{
 			free(env[var_id]);
@@ -62,9 +66,6 @@ static void	ft_unset(t_cmd *cmd, char **env)
 				j++;
 			}
 		}
-		else if (!identifier_is_valid(cmd->args[i], 0))
-			printf("bash: unset: `%s': not a valid identifier\n",
-				cmd->args[i]);
 		i++;
 	}
 }
@@ -84,7 +85,7 @@ static void	ft_export(t_cmd *cmd, char ***env)
 			var_id = get_var_id(cmd->args[i], *env);
 			if (var_id == -1)
 				add_var_to_env(cmd->args[i], env);
-			else
+			else if (ft_strchr(cmd->args[i], '='))
 			{
 				free((*env)[var_id]);
 				(*env)[var_id] = ft_strdup(cmd->args[i]);

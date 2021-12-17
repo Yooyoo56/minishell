@@ -6,7 +6,7 @@
 #    By: ytak <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 14:49:45 by ytak              #+#    #+#              #
-#    Updated: 2021/12/16 13:30:00 by ytak             ###   ########.fr        #
+#    Updated: 2021/12/17 15:08:20 by ytak             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,10 @@ SRCS	= main.c \
 		  parsing/ft_generate_nl_utils.c \
 		  parsing/ft_parse_cmds.c \
 		  parsing/ft_parsing_err.c \
+		  parsing/ft_parse_chevrons.c\
+		  parsing/ft_parse_pipes.c\
 		  parsing/ft_parsing_utils.c \
+		  cmds/ft_cmds_echo.c \
 		  cmds/ft_manage_cmds.c
 
 OBJ_DIR	= obj/

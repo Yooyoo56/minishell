@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/16 17:32:45 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/17 15:10:01 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,28 @@ char	*ft_strchri(char *s, char c, int start, int stop);
 void	erase_char(char *str, int index);
 char	get_non_printable(char c);
 // ft_parse_cmds.c
-// changed the const char to CONST
 t_cmd	**parsing(const char *line);
 // ft_parsing_err.c
-int		err_multiple_chevrons(const char *line);
-int		err_chevrons_reverse(const char *line);
-int		err_pipes(const char *line);
+int		err_combine_quotes(const char *line);
 int		err_slash(const char *line);
 int		err_semicolon(const char *line);
-int		err_pipe_space(const char *line);
-int		err_combine_quotes(const char *line);
-int		err_chevrons_space(const char *line);
 int		parsing_error(const char *line);
+//ft_parse_chevrons.c
+int		err_multiple_chevrons(const char *line);
+int		err_chevrons_reverse(const char *line);
+int		err_chevrons_space(const char *line);
+//ft_parse_pipes.c
+int		err_pipes(const char *line);
+int		err_pipe_space(const char *line);
 // ft_parse_utils.c
 void	erase_str(char *str, int start, int nb_chars);
 int		is_operator(char c);
 t_op	get_op(char *line, int *op_nbr);
 
 /* cmds */
-void    manage_cmds(t_cmd **cmds);
+//ft_cmds_echo.c
+void	manage_cmds(t_cmd **cmds);
+
+
 
 #endif

@@ -84,8 +84,9 @@ t_op	get_op(char *line, int *op_nbr);
 // ft_cmds_utils.c
 int		get_var_id(char *var_name, char **env);
 int		identifier_is_valid(char *identifier, int is_export);
-int		cmd_name_is(t_cmd *cmd, char *str);
 void	print_sorted_env(char **env);
+void	add_var_to_env(char *var, char ***env);
+int		cmd_name_is(t_cmd *cmd, char *str);
 // ft_manage_cmds.c
 void	manage_cmds(t_cmd **cmds, char ***env);
 

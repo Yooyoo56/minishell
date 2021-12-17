@@ -26,7 +26,7 @@ int	get_var_id(char *var, char **env)
 		equal_pos = ft_strchr(env[i], '=') - env[i];
 		str_before_equal = ft_substr(env[i], 0, equal_pos);
 		if (ft_strcmp(str_before_equal + (str_before_equal[0] == DEL),
-			var) == 0)
+				var) == 0)
 		{
 			free(var);
 			free(str_before_equal);
@@ -80,10 +80,29 @@ void	print_sorted_env(char **env)
 	while (--i[1])
 	{
 		printf("declare -x %.*s=\"%s\"\n", (int)(ft_strchr(c[i[1]], '=')
-			- c[i[1]] - (c[i[1]][0] == DEL)), &c[i[1]][c[i[1]][0] == DEL],
+				- c[i[1]] - (c[i[1]][0] == DEL)), &c[i[1]][c[i[1]][0] == DEL],
 			ft_strchr(c[i[1]], '=') + 1);
 	}
 	free_2d_array((void **)c);
+}
+
+void	add_var_to_env(char *var, char ***env)
+{
+	int		size;
+	char	**tmp;
+
+	tmp = ft_calloc(1, sizeof(char *));
+	size = 0;
+	while ((*env)[size])
+	{
+		tmp = ft_realloc(tmp, (size + 2) * sizeof(char *),
+				(size + 3) * sizeof(char *));
+		tmp[size] = ft_strdup((*env)[size]);
+		size++;
+	}
+	tmp[size] = ft_strjoin("\177", var);
+	free_2d_array((void **)*env);
+	*env = tmp;
 }
 
 int	cmd_name_is(t_cmd *cmd, char *str)

@@ -66,7 +66,8 @@ char	*ft_getenv(char *var_name, char **env)
 		if (equal_pos < 0)
 			equal_pos = ft_strlen(env[i]);
 		str_before_equal = ft_substr(env[i], 0, equal_pos);
-		if (ft_strcmp(str_before_equal + (str_before_equal[0] == DEL), var_name) == 0)
+		if (ft_strcmp(str_before_equal + (str_before_equal[0] == DEL),
+				var_name) == 0)
 		{
 			free(str_before_equal);
 			if (equal_pos >= 0)

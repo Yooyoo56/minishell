@@ -73,8 +73,6 @@ static void	ft_export(t_cmd *cmd, char ***env)
 {
 	int		i;
 	int		var_id;
-	int		size;
-	char	**tmp;
 
 	if (cmd->args[0] == NULL)
 		return (print_sorted_env(*env));
@@ -85,20 +83,7 @@ static void	ft_export(t_cmd *cmd, char ***env)
 		{
 			var_id = get_var_id(cmd->args[i], *env);
 			if (var_id == -1)
-			{
-				tmp = ft_calloc(1, sizeof(char *));
-				size = 0;
-				while ((*env)[size])
-				{
-					tmp = ft_realloc(tmp, (size + 2) * sizeof(char *),
-						(size + 3) * sizeof(char *));
-					tmp[size] = ft_strdup((*env)[size]);
-					size++;
-				}
-				tmp[size] = ft_strjoin("\177", cmd->args[i]);
-				free_2d_array((void **)*env);
-				*env = tmp;
-			}
+				add_var_to_env(cmd->args[i], env);
 			else
 			{
 				free((*env)[var_id]);

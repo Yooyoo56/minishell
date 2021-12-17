@@ -16,13 +16,13 @@ void	init_env(char ***env)
 {
 	char	**tmp;
 	int		size;
-	
+
 	tmp = ft_calloc(1, sizeof(char *));
 	size = 0;
 	while ((*env)[size])
 	{
 		tmp = ft_realloc(tmp, (size + 1) * sizeof(char *),
-			(size + 2) * sizeof(char *));
+				(size + 2) * sizeof(char *));
 		tmp[size] = ft_strdup((*env)[size]);
 		size++;
 	}

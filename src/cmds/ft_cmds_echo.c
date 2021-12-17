@@ -6,13 +6,13 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 15:08:33 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/17 15:14:07 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/17 16:44:42 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	ft_echo(t_cmd *cmd)
+void	ft_echo(t_cmd *cmd)
 {
 	int	i;
 
@@ -27,20 +27,4 @@ static void	ft_echo(t_cmd *cmd)
 		printf("\n");
 	else if (ft_strncmp(cmd->flag, "-n", ft_strlen(cmd->flag)) != 0)
 		printf("\n");
-}
-
-void	manage_cmds(t_cmd **cmds)
-{
-	int	i;
-
-	i = 0;
-	while (cmds[i])
-	{
-		if (cmds[i]->nom)
-		{
-			if (ft_strncmp(cmds[i]->nom, "echo", ft_strlen(cmds[i]->nom)) == 0)
-				ft_echo(cmds[i]);
-		}
-		i++;
-	}
 }

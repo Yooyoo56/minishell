@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/17 15:10:01 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/17 16:42:53 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,11 @@ int		is_operator(char c);
 t_op	get_op(char *line, int *op_nbr);
 
 /* cmds */
-//ft_cmds_echo.c
+
+//ft_manage_cmnds
 void	manage_cmds(t_cmd **cmds);
 
-
+//ft_cmds_echo.c
+void	ft_echo(t_cmd *cmd);
 
 #endif

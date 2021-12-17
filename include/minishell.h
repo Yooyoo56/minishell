@@ -27,6 +27,7 @@
 # define INF_	29
 # define SUP_	30
 # define PIPE_	31
+# define DEL	127
 
 typedef enum OP { NONE, INF, DOUBLE_INF, SUP, DOUBLE_SUP }	t_op;
 
@@ -82,8 +83,10 @@ t_op	get_op(char *line, int *op_nbr);
 /* cmds */
 // ft_cmds_utils.c
 int		get_var_id(char *var_name, char **env);
-int		identifier_is_valid(char *identifier);
+int		identifier_is_valid(char *identifier, int is_export);
+int		cmd_name_is(t_cmd *cmd, char *str);
+void	print_sorted_env(char **env);
 // ft_manage_cmds.c
-void	manage_cmds(t_cmd **cmds, char **env);
+void	manage_cmds(t_cmd **cmds, char ***env);
 
 #endif

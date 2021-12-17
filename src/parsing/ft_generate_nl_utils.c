@@ -63,12 +63,15 @@ char	*ft_getenv(char *var_name, char **env)
 	while (env[i])
 	{
 		equal_pos = ft_strchr(env[i], '=') - env[i];
+		if (equal_pos < 0)
+			equal_pos = ft_strlen(env[i]);
 		str_before_equal = ft_substr(env[i], 0, equal_pos);
-		if (ft_strncmp(str_before_equal, var_name,
-				ft_strlen(var_name) + ft_strlen(str_before_equal)) == 0)
+		if (ft_strcmp(str_before_equal + (str_before_equal[0] == DEL), var_name) == 0)
 		{
 			free(str_before_equal);
-			return (ft_substr(env[i], equal_pos + 1, ft_strlen(env[i])));
+			if (equal_pos >= 0)
+				return (ft_substr(env[i], equal_pos + 1, ft_strlen(env[i])));
+			return (ft_strdup(""));
 		}
 		free(str_before_equal);
 		i++;

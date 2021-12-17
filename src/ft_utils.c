@@ -37,8 +37,7 @@ void	free_cmds(t_cmd **cmds)
 			free(cmds[i]->nom);
 		if (cmds[i]->flag)
 			free(cmds[i]->flag);
-		if (cmds[i]->args)
-			free_2d_array((void **)cmds[i]->args);
+		free_2d_array((void **)cmds[i]->args);
 		j = 0;
 		while (cmds[i]->redirs && cmds[i]->redirs[j])
 		{

@@ -12,30 +12,34 @@
 
 #include "../../include/minishell.h"
 
-int	get_var_id(char *var_name, char **env)
+int	get_var_id(char *var, char **env)
 {
 	int		i;
 	int		equal_pos;
 	char	*str_before_equal;
 
 	i = 0;
+	equal_pos = ft_strchr(var, '=') - var;
+	var = ft_substr(var, 0, equal_pos);
 	while (env[i])
 	{
 		equal_pos = ft_strchr(env[i], '=') - env[i];
 		str_before_equal = ft_substr(env[i], 0, equal_pos);
-		if (ft_strncmp(str_before_equal, var_name,
-				ft_strlen(var_name) + ft_strlen(str_before_equal)) == 0)
+		if (ft_strcmp(str_before_equal + (str_before_equal[0] == DEL),
+			var) == 0)
 		{
+			free(var);
 			free(str_before_equal);
 			return (i);
 		}
 		free(str_before_equal);
 		i++;
 	}
+	free(var);
 	return (-1);
 }
 
-int	identifier_is_valid(char *identifier)
+int	identifier_is_valid(char *identifier, int is_export)
 {
 	int	i;
 
@@ -44,9 +48,45 @@ int	identifier_is_valid(char *identifier)
 	i = 0;
 	while (identifier[i])
 	{
+		if (is_export && identifier[i] == '=')
+			return (1);
 		if (!ft_isalnum(identifier[i]) && identifier[i] != '_')
 			return (0);
 		i++;
 	}
 	return (1);
+}
+
+void	print_sorted_env(char **env)
+{
+	int		i[3];
+	char	**c;
+
+	c = (char **)ft_calloc(1, sizeof(char *));
+	*i = -1;
+	while (env[++*i])
+	{
+		c = ft_realloc(c, (*i + 1) * sizeof(char *), (*i + 2) * sizeof(char *));
+		c[*i] = ft_strdup(env[*i]);
+	}
+	i[1] = 0;
+	while (++i[1] < *i)
+	{
+		i[2] = i[1];
+		while (++i[2] < *i)
+			if (ft_strcmp(c[i[1]], c[i[2]]) < 0)
+				ft_swap(&c[i[1]], &c[i[2]], sizeof(char *));
+	}
+	while (--i[1])
+	{
+		printf("declare -x %.*s=\"%s\"\n", (int)(ft_strchr(c[i[1]], '=')
+			- c[i[1]] - (c[i[1]][0] == DEL)), &c[i[1]][c[i[1]][0] == DEL],
+			ft_strchr(c[i[1]], '=') + 1);
+	}
+	free_2d_array((void **)c);
+}
+
+int	cmd_name_is(t_cmd *cmd, char *str)
+{
+	return (ft_strncmp(cmd->nom, str, ft_strlen(cmd->nom)) == 0);
 }

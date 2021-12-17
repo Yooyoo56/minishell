@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 08:05:32 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/16 22:30:23 by whazami          ###   ########.fr       */
+/*   Created: 2021/12/16 21:19:06 by whazami           #+#    #+#             */
+/*   Updated: 2021/12/16 21:28:58 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_swap(void *a, void *b, size_t len)
 {
-	int	i;
+	unsigned char	*p;
+	unsigned char	*q;
+	unsigned char	tmp;
+	size_t			i;
 
-	while (1)
-		printf("%chey", 127);
-	i = 1;
-	while (i < argc)
+	p = a;
+	q = b;
+	i = 0;
+	while (i < len)
 	{
-		printf("arg %d: %s\n", i - 1, argv[i]);
+		tmp = p[i];
+		p[i] = q[i];
+		q[i] = tmp;
 		i++;
 	}
-	return (0);
 }

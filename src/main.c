@@ -12,6 +12,23 @@
 
 #include "../include/minishell.h"
 
+void	init_env(char ***env)
+{
+	char	**tmp;
+	int		size;
+	
+	tmp = ft_calloc(1, sizeof(char *));
+	size = 0;
+	while ((*env)[size])
+	{
+		tmp = ft_realloc(tmp, (size + 1) * sizeof(char *),
+			(size + 2) * sizeof(char *));
+		tmp[size] = ft_strdup((*env)[size]);
+		size++;
+	}
+	*env = tmp;
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char		*line;
@@ -19,6 +36,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argc;
 	(void)argv;
+	init_env(&env);
 	print_header();
 	line = readline("$> ");
 	while (ft_strncmp(line, "exit", 4) != 0)
@@ -30,7 +48,7 @@ int	main(int argc, char **argv, char **env)
 			if (cmds)
 			{
 				//print_cmds(cmds);
-				manage_cmds(cmds, env);
+				manage_cmds(cmds, &env);
 				free_cmds(cmds);
 			}
 		}
@@ -38,6 +56,7 @@ int	main(int argc, char **argv, char **env)
 		line = readline("$> ");
 	}
 	free(line);
+	free_2d_array((void **)env);
 	system("leaks minishell");
 	return (0);
 }

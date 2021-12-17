@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 19:10:42 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/16 19:10:44 by whazami          ###   ########.fr       */
+/*   Updated: 2021/12/17 22:26:59 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 int	cmd_name_is(t_cmd *cmd, char *str)
 {
-	return (ft_strncmp(cmd->nom, str, ft_strlen(cmd->nom)) == 0);
+	if (cmd->nom)
+		return (ft_strcmp(cmd->nom, str) == 0);
+	return (0);
 }

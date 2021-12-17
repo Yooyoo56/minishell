@@ -6,11 +6,28 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 21:01:44 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/17 21:01:59 by whazami          ###   ########.fr       */
+/*   Updated: 2021/12/17 22:29:58 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	init_env(char ***env)
+{
+	char	**tmp;
+	int		size;
+
+	tmp = ft_calloc(1, sizeof(char *));
+	size = 0;
+	while ((*env)[size])
+	{
+		tmp = ft_realloc(tmp, (size + 1) * sizeof(char *),
+				(size + 2) * sizeof(char *));
+		tmp[size] = ft_strdup((*env)[size]);
+		size++;
+	}
+	*env = tmp;
+}
 
 int	get_var_id(char *var, char **env)
 {

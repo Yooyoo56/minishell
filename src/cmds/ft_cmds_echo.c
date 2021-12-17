@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_manage_cmds.c                                   :+:      :+:    :+:   */
+/*   ft_cmds_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/16 13:02:56 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/17 22:09:43 by whazami          ###   ########.fr       */
+/*   Created: 2021/12/17 15:08:33 by ytak              #+#    #+#             */
+/*   Updated: 2021/12/17 22:24:42 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	manage_cmds(t_cmd **cmds, char ***env)
+void	ft_echo(t_cmd *cmd)
 {
 	int	i;
 
 	i = 0;
-	while (cmds[i])
+	if (cmd->flag != NULL && ft_strcmp(cmd->flag, "-n") != 0)
 	{
-		if (cmd_name_is(cmds[i], "echo"))
-			ft_echo(cmds[i]);
-		else if (cmd_name_is(cmds[i], "env"))
-			ft_env(*env);
-		else if (cmd_name_is(cmds[i], "unset"))
-			ft_unset(cmds[i], *env);
-		else if (cmd_name_is(cmds[i], "export"))
-			ft_export(cmds[i], env);
-		else if (cmd_name_is(cmds[i], "echo"))
-			ft_echo(cmds[i]);
+		printf("%s", cmd->flag);
+		if (cmd->args[0])
+			printf(" ");
+	}
+	while (cmd->args[i])
+	{
+		printf("%s", cmd->args[i]);
+		if (cmd->args[i + 1] != NULL)
+			printf(" ");
 		i++;
 	}
+	if (cmd->flag == NULL)
+		printf("\n");
+	else if (ft_strcmp(cmd->flag, "-n") != 0)
+		printf("\n");
 }

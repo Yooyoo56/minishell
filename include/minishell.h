@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/16 10:16:08 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/17 22:30:46 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,26 +60,27 @@ void	erase_char(char *str, int index);
 char	get_non_printable(char c);
 char	*ft_getenv(char *var_name, char **env);
 // ft_parse_cmds.c
-// changed the const char to CONST
 t_cmd	**parsing(const char *line, char **env);
 // ft_parsing_err.c
-int		err_chevrons(const char *line);
-int		err_chevrons_reverse(const char *line);
-int		err_pipes(const char *line);
-int		err_odd_double_quotes(const char *line);
-int		err_odd_simple_quotes(const char *line);
+int		err_combine_quotes(const char *line);
 int		err_slash(const char *line);
 int		err_semicolon(const char *line);
-int		err_pipe_space(const char *line);
-int		err_pipe_inside_space(const char *line);
-int		err_chevrons_space(const char *line);
 int		parsing_error(const char *line);
+//ft_parse_chevrons.c
+int		err_multiple_chevrons(const char *line);
+int		err_chevrons_reverse(const char *line);
+int		err_chevrons_space(const char *line);
+//ft_parse_pipes.c
+int		err_pipes(const char *line);
+int		err_pipe_space(const char *line);
 // ft_parse_utils.c
 void	erase_str(char *str, int start, int nb_chars);
 int		is_operator(char c);
 t_op	get_op(char *line, int *op_nbr);
 
 /* cmds */
+// ft_cmds_echo.c
+void	ft_echo(t_cmd *cmd);
 // ft_cmds_utils.c
 int		cmd_name_is(t_cmd *cmd, char *str);
 // ft_env_cmds.c
@@ -87,6 +88,7 @@ void	ft_env(char **env);
 void	ft_unset(t_cmd *cmd, char **env);
 void	ft_export(t_cmd *cmd, char ***env);
 // ft_env_utils.c
+void	init_env(char ***env);
 int		get_var_id(char *var_name, char **env);
 int		identifier_is_valid(char *identifier, int is_export);
 void	print_sorted_env(char **env);

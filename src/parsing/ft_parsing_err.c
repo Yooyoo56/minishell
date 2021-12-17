@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 17:46:18 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/16 17:48:53 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/16 18:15:41 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	err_combine_quotes(const char *line)
 			{
 				printf("🎃 Yoohooo you found out the error\n");
 				return (1);
-			} 
+			}
 			while (line[i])
 			{
 				if (line[i] == quote)

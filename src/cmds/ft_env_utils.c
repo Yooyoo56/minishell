@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 21:01:44 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/17 22:29:58 by whazami          ###   ########.fr       */
+/*   Updated: 2021/12/21 22:45:04 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	add_var_to_env(char *var, char ***env)
 	int		size;
 	char	**tmp;
 
-	tmp = ft_calloc(1, sizeof(char *));
+	tmp = ft_calloc(2, sizeof(char *));
 	size = 0;
 	while ((*env)[size])
 	{

@@ -44,17 +44,12 @@ static void	fill_redirs_and_remove_them(t_cmd *cmd, char *s)
 static void	fill_cmd(t_cmd *cmd, char *cmd_str)
 {
 	char		**words;
-	int			is_minus;
 	int			nb_args;
 	int			j;
 
 	words = ft_split(cmd_str, ' ');
 	cmd->nom = ft_strdup(words[0]);
-	is_minus = (words[0] && words[1] && words[1][0] == '-');
-	cmd->flag = NULL;
-	if (is_minus)
-		cmd->flag = ft_strdup(words[1]);
-	j = is_minus + 1;
+	j = 1;
 	nb_args = 0;
 	while (words[0] && words[nb_args + j])
 		nb_args++;
@@ -64,7 +59,7 @@ static void	fill_cmd(t_cmd *cmd, char *cmd_str)
 		return (free_2d_array((void **)words));
 	j--;
 	while (words[++j])
-		cmd->args[j - (is_minus + 1)] = ft_strdup(words[j]);
+		cmd->args[j - 1] = ft_strdup(words[j]);
 	free_2d_array((void **)words);
 }
 
@@ -97,7 +92,6 @@ static void	replace_non_printables(t_cmd *cmd)
 	int	i;
 
 	replace_non_printables_in_str(cmd->nom);
-	replace_non_printables_in_str(cmd->flag);
 	i = 0;
 	while (cmd->args[i])
 	{

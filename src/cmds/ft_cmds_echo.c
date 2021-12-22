@@ -12,26 +12,40 @@
 
 #include "../../include/minishell.h"
 
-void	ft_echo(t_cmd *cmd)
+static int	there_is_only_char_in_str(char c, char *str)
 {
 	int	i;
 
 	i = 0;
-	if (cmd->flag != NULL && ft_strcmp(cmd->flag, "-n") != 0)
+	while (str[i])
 	{
-		printf("%s", cmd->flag);
-		if (cmd->args[0])
-			printf(" ");
+		if (str[i] != c)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	ft_echo(t_cmd *cmd)
+{
+	int	flag_n;
+	int	i;
+
+	flag_n = 0;
+	i = 0;
+	while (cmd->args[i] != NULL && cmd->args[i][0] == '-'
+		&& there_is_only_char_in_str('n', cmd->args[i] + 1))
+	{
+		flag_n = 1;
+		i++;
 	}
 	while (cmd->args[i])
 	{
 		printf("%s", cmd->args[i]);
-		if (cmd->args[i + 1] != NULL)
+		if (cmd->args[i + 1])
 			printf(" ");
 		i++;
 	}
-	if (cmd->flag == NULL)
-		printf("\n");
-	else if (ft_strcmp(cmd->flag, "-n") != 0)
+	if (!flag_n)
 		printf("\n");
 }

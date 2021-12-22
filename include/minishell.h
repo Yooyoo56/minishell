@@ -18,6 +18,7 @@
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 # include <term.h>
 # include <curses.h>
 # include "../libft/libft.h"
@@ -39,7 +40,6 @@ typedef struct s_redir
 typedef struct s_cmd
 {
 	char	*nom;
-	char	*flag;
 	char	**args;
 	t_redir	**redirs;
 }	t_cmd;
@@ -55,7 +55,7 @@ void	print_header(void);
 // ft_generate_new_line.c (manages quotes, $ and non printables)
 char	*generate_new_line(const char *line, char **env);
 // ft_generate_nl_utils.c
-char	*ft_strchri(char *s, char c, int start, int stop);
+char	*ft_strchri(char *s, char c, int start, int stop, int none_is_end);
 void	erase_char(char *str, int index);
 char	get_non_printable(char c);
 char	*ft_getenv(char *var_name, char **env);

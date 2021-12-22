@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:41:05 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/17 22:29:20 by whazami          ###   ########.fr       */
+/*   Updated: 2021/12/21 23:21:19 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@ int	main(int argc, char **argv, char **env)
 	}
 	free(line);
 	free_2d_array((void **)env);
-	system("leaks minishell");
+	//system("leaks minishell");
 	return (0);
 }

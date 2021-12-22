@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-char	*ft_strchri(char *s, char c, int start, int stop)
+char	*ft_strchri(char *s, char c, int start, int stop, int none_is_end)
 {
 	int	i;
 
@@ -22,7 +22,11 @@ char	*ft_strchri(char *s, char c, int start, int stop)
 		if (s[i] == c)
 			return (&s[i]);
 		if (!s[i])
+		{
+			if (none_is_end)
+				return (&s[i]);
 			return (NULL);
+		}
 		i++;
 	}
 	return (NULL);

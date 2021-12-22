@@ -35,8 +35,6 @@ void	free_cmds(t_cmd **cmds)
 	{
 		if (cmds[i]->nom)
 			free(cmds[i]->nom);
-		if (cmds[i]->flag)
-			free(cmds[i]->flag);
 		free_2d_array((void **)cmds[i]->args);
 		j = 0;
 		while (cmds[i]->redirs && cmds[i]->redirs[j])
@@ -91,8 +89,6 @@ void	print_cmds(t_cmd **cmds)
 	while (cmds[i])
 	{
 		printf("{name: %s", cmds[i]->nom);
-		if (cmds[i]->flag)
-			printf(", flag: %s", cmds[i]->flag);
 		j = 0;
 		while (cmds[i]->args[j])
 		{

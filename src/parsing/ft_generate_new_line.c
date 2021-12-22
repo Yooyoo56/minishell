@@ -100,10 +100,10 @@ static void	manage_dollars(char **line, int index[2], char **env)
 
 	dollar_i = index[0];
 	len_var_expands = 0;
-	while (ft_strchri(*line, '$', dollar_i + len_var_expands, index[1]))
+	while (ft_strchri(*line, '$', dollar_i + len_var_expands, index[1], 0))
 	{
 		dollar_i = ft_strchri(*line, '$',
-				dollar_i + len_var_expands, index[1]) - *line;
+				dollar_i + len_var_expands, index[1], 0) - *line;
 		if (dollar_i < 0)
 			break ;
 		i = dollar_i;
@@ -126,19 +126,19 @@ char	*generate_new_line(const char *line, char **env)
 
 	new_line = ft_strdup(line);
 	index[0] = 0;
-	while (ft_strchri(new_line, '\'', index[0], -1))
+	while (ft_strchri(new_line, '\'', index[0], -1, 0))
 	{
-		index[1] = ft_strchri(new_line, '\'', index[0], -1) - new_line + 1;
+		index[1] = ft_strchri(new_line, '\'', index[0], -1, 0) - new_line + 1;
 		manage_dollars(&new_line, index, env);
-		index[0] = ft_strchri(new_line, '\'', index[1], -1) - new_line + 1;
+		index[0] = ft_strchri(new_line, '\'', index[1], -1, 0) - new_line + 1;
 		if (index[0] < 0)
 			index[0] = index[1];
 	}
 	index[1] = ft_strlen(new_line);
 	manage_dollars(&new_line, index, env);
 	index[1] = 0;
-	while (ft_strchri(new_line, '\'', index[1], -1)
-		|| ft_strchri(new_line, '"', index[1], -1))
+	while (ft_strchri(new_line, '\'', index[1], -1, 0)
+		|| ft_strchri(new_line, '"', index[1], -1, 0))
 	{
 		find_start_end(new_line, index, &quote);
 		manage_replacements(new_line, index, quote);

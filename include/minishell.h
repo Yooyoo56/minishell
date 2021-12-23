@@ -42,6 +42,7 @@ typedef struct s_cmd
 	char	*nom;
 	char	**args;
 	t_redir	**redirs;
+	int		pid;
 }	t_cmd;
 
 // ft_utils.c
@@ -91,7 +92,7 @@ void	ft_export(t_cmd *cmd, char ***env);
 void	init_env(char ***env);
 int		get_var_id(char *var_name, char **env);
 int		identifier_is_valid(char *identifier, int is_export);
-void	print_sorted_env(char **env);
+int		print_sorted_env(char **env);
 void	add_var_to_env(char *var, char ***env);
 // ft_manage_cmds.c
 void	manage_cmds(t_cmd **cmds, char ***env);

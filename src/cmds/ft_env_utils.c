@@ -73,7 +73,7 @@ int	identifier_is_valid(char *identifier, int is_export)
 	return (1);
 }
 
-void	print_sorted_env(char **env)
+int	print_sorted_env(char **env)
 {
 	int		i[3];
 	char	**c;
@@ -99,6 +99,7 @@ void	print_sorted_env(char **env)
 			'"' * (!!ft_strchr(c[i[1]], '=')), ft_strchr_end(c[i[1]], '=')
 			+ !!ft_strchr_end(c[i[1]], '='), '"' * (!!ft_strchr(c[i[1]], '=')));
 	free_2d_array((void **)c);
+	return (0);
 }
 
 void	add_var_to_env(char *var, char ***env)

@@ -23,6 +23,7 @@ void	ft_env(char **env)
 			printf("%s\n", env[i]);
 		i++;
 	}
+	exit(0);
 }
 
 void	ft_unset(t_cmd *cmd, char **env)
@@ -59,7 +60,7 @@ void	ft_export(t_cmd *cmd, char ***env)
 	int		var_id;
 
 	if (cmd->args[0] == NULL)
-		return (print_sorted_env(*env));
+		return ((void)print_sorted_env(*env));
 	i = 0;
 	while (cmd->args[i])
 	{

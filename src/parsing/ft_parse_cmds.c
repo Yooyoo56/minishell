@@ -49,6 +49,7 @@ static void	fill_cmd(t_cmd *cmd, char *cmd_str)
 
 	words = ft_split(cmd_str, ' ');
 	cmd->nom = ft_strdup(words[0]);
+	cmd->exit = 0;
 	j = 1;
 	nb_args = 0;
 	while (words[0] && words[nb_args + j])

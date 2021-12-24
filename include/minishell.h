@@ -43,6 +43,7 @@ typedef struct s_cmd
 	char	**args;
 	t_redir	**redirs;
 	int		pid;
+	int		exit;
 }	t_cmd;
 
 // ft_utils.c
@@ -85,7 +86,7 @@ void	ft_echo(t_cmd *cmd);
 // ft_cmds_utils.c
 int		cmd_name_is(t_cmd *cmd, char *str);
 // ft_env_cmds.c
-void	ft_env(char **env);
+void	ft_env(char **env, int exit_code);
 void	ft_unset(t_cmd *cmd, char **env);
 void	ft_export(t_cmd *cmd, char ***env);
 // ft_env_utils.c

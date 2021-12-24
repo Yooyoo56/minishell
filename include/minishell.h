@@ -56,7 +56,7 @@ void	print_header(void);
 // ft_generate_new_line.c (manages quotes, $ and non printables)
 char	*generate_new_line(const char *line, char **env);
 // ft_generate_nl_utils.c
-char	*ft_strchri(char *s, char c, int start, int stop, int none_is_end);
+char	*ft_strchri(char *s, char c, int start, int stop);
 void	erase_char(char *str, int index);
 char	get_non_printable(char c);
 char	*ft_getenv(char *var_name, char **env);
@@ -92,7 +92,7 @@ void	ft_export(t_cmd *cmd, char ***env);
 void	init_env(char ***env);
 int		get_var_id(char *var_name, char **env);
 int		identifier_is_valid(char *identifier, int is_export);
-int		print_sorted_env(char **env);
+void	print_sorted_env(char **env);
 void	add_var_to_env(char *var, char ***env);
 // ft_manage_cmds.c
 void	manage_cmds(t_cmd **cmds, char ***env);

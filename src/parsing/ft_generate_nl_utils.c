@@ -12,10 +12,17 @@
 
 #include "../../include/minishell.h"
 
-char	*ft_strchri(char *s, char c, int start, int stop, int none_is_end)
+char	*ft_strchri(char *s, char c, int start, int stop)
 {
 	int	i;
+	int	none_is_end;
 
+	none_is_end = 0;
+	if (c < 0)
+	{
+		none_is_end = 1;
+		c = -c;
+	}
 	i = start;
 	while (stop == -1 || i < stop)
 	{

@@ -60,7 +60,7 @@ void	ft_export(t_cmd *cmd, char ***env)
 	int		var_id;
 
 	if (cmd->args[0] == NULL)
-		return ((void)print_sorted_env(*env));
+		return (print_sorted_env(*env));
 	i = 0;
 	while (cmd->args[i])
 	{

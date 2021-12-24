@@ -24,7 +24,7 @@ static char	*get_cmd_with_path(t_cmd *cmd, char **env)
 	index[0] = 0;
 	while (cmd_with_path && access(cmd_with_path, F_OK) == -1)
 	{
-		index[1] = ft_strchri(path, ':', index[0], ft_strlen(path), 1) - path;
+		index[1] = ft_strchri(path, - ':', index[0], ft_strlen(path)) - path;
 		sub_path = ft_substr(path, index[0], index[1] - index[0] + 1);
 		sub_path[ft_strlen(sub_path) - 1] = '/';
 		free(cmd_with_path);
@@ -64,8 +64,6 @@ static void	non_built_in_command(t_cmd *cmd, char **env)
 		i++;
 	}
 	execve(cmd_with_path, args, env);
-	free(cmd_with_path);
-	free_2d_array((void **)args);
 }
 
 static void	get_env_from_child(int pid, char ***env, int fd[2])
@@ -73,12 +71,12 @@ static void	get_env_from_child(int pid, char ***env, int fd[2])
 	char	*env_line;
 	int		i;
 
-	i = -1 * (pid == 0);
 	if (pid != 0)
 	{
 		free_2d_array((void **)*env);
 		*env = ft_calloc(1, sizeof(char *));
-		while (get_next_line(fd[0], &env_line) && ft_strcmp(env_line, "\04"))
+		i = 0;
+		while (get_next_line(fd[0], &env_line) && !ft_strchr(env_line, '\04'))
 		{
 			*env = ft_realloc(*env, (i + 1) * sizeof(char *),
 					(i + 2) * sizeof(char *));
@@ -89,13 +87,11 @@ static void	get_env_from_child(int pid, char ***env, int fd[2])
 	}
 	else
 	{
+		i = -1;
 		while ((*env)[++i])
-		{
-			write(fd[1], (*env)[i], ft_strlen((*env)[i]));
-			write(fd[1], "\n", 1);
-		}
-		write(fd[1], "\04\n", 2);
-		exit(0);
+			ft_putstr_fd(ft_strapp(&(*env)[i], "\n"), fd[1]);
+		free_2d_array((void **)*env);
+		exit(!ft_putstr_fd("\04\n", fd[1]));
 	}
 }
 

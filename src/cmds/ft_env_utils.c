@@ -73,7 +73,7 @@ int	identifier_is_valid(char *identifier, int is_export)
 	return (1);
 }
 
-int	print_sorted_env(char **env)
+void	print_sorted_env(char **env)
 {
 	int		i[3];
 	char	**c;
@@ -97,9 +97,8 @@ int	print_sorted_env(char **env)
 		printf("declare -x %.*s%c%c%s%c\n", (int)(ft_strchr_end(c[i[1]], '=')
 				- c[i[1]]), c[i[1]], '=' * (!!ft_strchr(c[i[1]], '=')),
 			'"' * (!!ft_strchr(c[i[1]], '=')), ft_strchr_end(c[i[1]], '=')
-			+ !!ft_strchr_end(c[i[1]], '='), '"' * (!!ft_strchr(c[i[1]], '=')));
+			+ !!ft_strchr(c[i[1]], '='), '"' * (!!ft_strchr(c[i[1]], '=')));
 	free_2d_array((void **)c);
-	return (0);
 }
 
 void	add_var_to_env(char *var, char ***env)

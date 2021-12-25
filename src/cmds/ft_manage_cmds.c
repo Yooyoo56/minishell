@@ -102,7 +102,6 @@ static void	exec_cmd_by_name(t_cmd *cmd, char ***env)
 	int	fd_env[2];
 
 	pipe(fd_env);
-	cmd->pid = fork();
 	if (cmd->pid == 0)
 	{
 		if (cmd_name_is(cmd, "echo"))
@@ -120,20 +119,57 @@ static void	exec_cmd_by_name(t_cmd *cmd, char ***env)
 		get_env_from_child(cmd, env, fd_env);
 }
 
-void	manage_cmds(t_cmd **cmds, char ***env)
+/* if create == 1 then create the pipes
+ * else close them */
+static void	manage_pipes(int (**pipes)[2], const t_cmd **cmds, int create)
 {
 	int	i;
 
+	if (create == 1)
+		*pipes = NULL;
 	i = 0;
+	while (cmds[i + 1])
+	{
+		if (create)
+		{
+			*pipes = ft_realloc(*pipes, i * sizeof(int *),
+					(i + 1) * sizeof(int *));
+			pipe((*pipes)[i]);
+		}
+		else
+		{
+			close((*pipes)[i][0]);
+			close((*pipes)[i][1]);
+		}
+		i++;
+	}
+	if (create == 0)
+		free(*pipes);
+}
+
+void	manage_cmds(t_cmd **cmds, char ***env)
+{
+	int	i;
+	int	(*pipes)[2];
+
+	i = 0;
+	manage_pipes(&pipes, (const t_cmd **)cmds, 1);
 	while (cmds[i])
 	{
+		cmds[i]->pid = fork();
+		if (cmds[i]->pid == 0)
+		{
+			if (cmds[i + 1])
+				dup2(pipes[i][1], STDOUT_FILENO);
+			if (i > 0)
+				dup2(pipes[i - 1][0], STDIN_FILENO);
+			manage_pipes(&pipes, (const t_cmd **)cmds, 0);
+		}
 		exec_cmd_by_name(cmds[i], env);
 		i++;
 	}
+	manage_pipes(&pipes, (const t_cmd **)cmds, 0);
 	i = 0;
 	while (cmds[i])
-	{
-		waitpid(cmds[i]->pid, NULL, 0);
-		i++;
-	}
+		waitpid(cmds[i++]->pid, NULL, 0);
 }

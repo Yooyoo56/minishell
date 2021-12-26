@@ -12,113 +12,6 @@
 
 #include "../../include/minishell.h"
 
-static char	*get_cmd_with_path(t_cmd *cmd, char **env)
-{
-	char		*path;
-	char		*sub_path;
-	char		*cmd_with_path;
-	long int	index[2];
-
-	path = ft_getenv("PATH", env);
-	cmd_with_path = ft_strdup(cmd->nom);
-	index[0] = 0;
-	while (index[0] >= 0 && access(cmd_with_path, F_OK) == -1)
-	{
-		index[1] = ft_strchri(path, ':', index[0], ft_strlen(path)) - path;
-		sub_path = ft_substr(path, index[0], index[1] - index[0]);
-		ft_strapp(&sub_path, "/");
-		free(cmd_with_path);
-		cmd_with_path = ft_strjoin(sub_path, cmd->nom);
-		free(sub_path);
-		index[0] = index[1] + 1;
-	}
-	if (access(cmd_with_path, F_OK) == -1)
-	{
-		free(cmd_with_path);
-		cmd_with_path = NULL;
-	}
-	free(path);
-	return (cmd_with_path);
-}
-
-static void	non_built_in_command(t_cmd *cmd, char **env)
-{
-	char	*cmd_with_path;
-	char	**args;
-	int		i;
-
-	cmd_with_path = get_cmd_with_path(cmd, env);
-	if (cmd_with_path == NULL)
-	{
-		printf("bash: %s: command not found\n", cmd->nom);
-		if (cmd->exit == 0)
-			cmd->exit = 127;
-		exit(cmd->exit);
-	}
-	args = ft_calloc(2, sizeof(char *));
-	args[0] = ft_strdup(cmd->nom);
-	i = 0;
-	while (cmd->args[i])
-	{
-		args = ft_realloc(args, (i + 2) * sizeof(char *),
-				(i + 3) * sizeof(char *));
-		args[i + 1] = ft_strdup(cmd->args[i]);
-		i++;
-	}
-	execve(cmd_with_path, args, env);
-}
-
-static void	get_env_from_child(t_cmd *cmd, char ***env, int fd[2])
-{
-	char	*env_line;
-	int		i;
-
-	i = -1 * (cmd->pid == 0);
-	if (cmd->pid != 0)
-	{
-		free_2d_array((void **)*env);
-		*env = ft_calloc(1, sizeof(char *));
-		while (get_next_line(fd[0], &env_line) && !ft_strchr(env_line, '\04'))
-		{
-			*env = ft_realloc(*env, (i + 1) * sizeof(char *),
-					(i + 2) * sizeof(char *));
-			(*env)[i++] = ft_strdup(env_line);
-			free(env_line);
-		}
-		free(env_line);
-	}
-	else
-	{
-		while ((*env)[++i])
-			ft_putstr_fd(ft_strapp(&(*env)[i], "\n"), fd[1]);
-		free_2d_array((void **)*env);
-		ft_putstr_fd("\04\n", fd[1]);
-		exit(cmd->exit);
-	}
-}
-
-static void	exec_cmd_by_name(t_cmd *cmd, char ***env)
-{
-	int	fd_env[2];
-
-	pipe(fd_env);
-	if (cmd->pid == 0)
-	{
-		if (cmd_name_is(cmd, "echo"))
-			ft_echo(cmd);
-		else if (cmd_name_is(cmd, "env"))
-			ft_env(*env, cmd->exit);
-		else if (cmd_name_is(cmd, "unset"))
-			ft_unset(cmd, *env);
-		else if (cmd_name_is(cmd, "export"))
-			ft_export(cmd, env);
-		else
-			non_built_in_command(cmd, *env);
-	}
-	if (cmd_name_is(cmd, "export") || cmd_name_is(cmd, "unset"))
-		get_env_from_child(cmd, env, fd_env);
-}
-
 /* if create == 1 then create the pipes
  * else close them */
 static void	manage_pipes(int (**pipes)[2], const t_cmd **cmds, int create)
@@ -147,13 +40,36 @@ static void	manage_pipes(int (**pipes)[2], const t_cmd **cmds, int create)
 		free(*pipes);
 }
 
+static void	exec_cmd_by_name(t_cmd *cmd, char ***env, int fd_env[2], int getenv)
+{
+	if (cmd->pid == 0)
+	{
+		if (cmd_name_is(cmd, "echo"))
+			ft_echo(cmd);
+		else if (cmd_name_is(cmd, "env"))
+			ft_env(*env, cmd->exit);
+		else if (cmd_name_is(cmd, "unset"))
+			ft_unset(cmd, *env);
+		else if (cmd_name_is(cmd, "export"))
+			ft_export(cmd, env);
+		else
+			non_built_in_command(cmd, *env);
+	}
+	if ((cmd_name_is(cmd, "export") || cmd_name_is(cmd, "unset")) && getenv)
+		get_env_from_child(cmd, env, fd_env);
+	if (cmd->pid == 0)
+		exit(cmd->exit);
+}
+
 void	manage_cmds(t_cmd **cmds, char ***env)
 {
-	int	i;
 	int	(*pipes)[2];
+	int	fd_env[2];
+	int	i;
 
-	i = 0;
 	manage_pipes(&pipes, (const t_cmd **)cmds, 1);
+	pipe(fd_env);
+	i = 0;
 	while (cmds[i])
 	{
 		cmds[i]->pid = fork();
@@ -165,7 +81,7 @@ void	manage_cmds(t_cmd **cmds, char ***env)
 				dup2(pipes[i - 1][0], STDIN_FILENO);
 			manage_pipes(&pipes, (const t_cmd **)cmds, 0);
 		}
-		exec_cmd_by_name(cmds[i], env);
+		exec_cmd_by_name(cmds[i], env, fd_env, (i == 0 && cmds[i + 1] == NULL));
 		i++;
 	}
 	manage_pipes(&pipes, (const t_cmd **)cmds, 0);

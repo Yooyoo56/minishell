@@ -84,6 +84,8 @@ t_op	get_op(char *line, int *op_nbr);
 // ft_cmds_echo.c
 void	ft_echo(t_cmd *cmd);
 // ft_cmds_utils.c
+void	non_built_in_command(t_cmd *cmd, char **env);
+void	get_env_from_child(t_cmd *cmd, char ***env, int fd[2]);
 int		cmd_name_is(t_cmd *cmd, char *str);
 // ft_env_cmds.c
 void	ft_env(char **env, int exit_code);

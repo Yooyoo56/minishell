@@ -66,6 +66,37 @@ int	is_empty(char *str)
 	return (1);
 }
 
+/* if you put '%s' in the error string, it will be replaced by the
+ * arg string (obviously it's optional). */
+int	print_err(char *cmd_name, char *error, char *arg)
+{
+	char		*str;
+	char		*cp;
+	long int	prc_pos;
+
+	str = ft_strjoin("bash: ", cmd_name);
+	ft_strapp(&str, ": ");
+	prc_pos = ft_strchr(error, '%') - error;
+	cp = ft_strdup(error);
+	while (prc_pos >= 0)
+	{
+		if (error[prc_pos + 1] == 's')
+		{
+			cp = ft_realloc(cp, ft_strlen(cp), ft_strlen(cp) + ft_strlen(arg));
+			ft_strlcpy(&cp[prc_pos], arg, ft_strlen(arg) + 1);
+			ft_strlcpy(&cp[prc_pos + ft_strlen(arg)], &error[prc_pos + 2],
+				ft_strlen(error));
+		}
+		prc_pos = ft_strchri(error, '%', prc_pos + 1, ft_strlen(error)) - error;
+	}
+	ft_strapp(&str, cp);
+	ft_strapp(&str, "\n");
+	prc_pos = ft_putstr_fd(str, STDERR_FILENO);
+	free(str);
+	free(cp);
+	return (prc_pos);
+}
+
 static void	print_redir(t_redir *redir)
 {
 	printf("op: ");

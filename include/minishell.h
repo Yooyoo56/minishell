@@ -50,6 +50,7 @@ typedef struct s_cmd
 void	free_2d_array(void **arr);
 void	free_cmds(t_cmd **cmds);
 int		is_empty(char *str);
+int		print_err(char *cmd_name, char *error, char *error_parameter);
 void	print_cmds(t_cmd **cmd);
 void	print_header(void);
 
@@ -85,10 +86,10 @@ t_op	get_op(char *line, int *op_nbr);
 void	ft_echo(t_cmd *cmd);
 // ft_cmds_utils.c
 void	non_built_in_command(t_cmd *cmd, char **env);
-void	get_env_from_child(t_cmd *cmd, char ***env, int fd[2]);
 int		cmd_name_is(t_cmd *cmd, char *str);
+int		is_built_in_cmd(t_cmd *cmd);
 // ft_env_cmds.c
-void	ft_env(char **env, int exit_code);
+void	ft_env(char **env);
 void	ft_unset(t_cmd *cmd, char **env);
 void	ft_export(t_cmd *cmd, char ***env);
 // ft_env_utils.c

@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-void	ft_env(char **env, int exit_code)
+void	ft_env(char **env)
 {
 	int	i;
 
@@ -23,7 +23,6 @@ void	ft_env(char **env, int exit_code)
 			printf("%s\n", env[i]);
 		i++;
 	}
-	exit(exit_code);
 }
 
 void	ft_unset(t_cmd *cmd, char **env)
@@ -37,8 +36,8 @@ void	ft_unset(t_cmd *cmd, char **env)
 	{
 		var_id = get_var_id(cmd->args[i], env);
 		if (!identifier_is_valid(cmd->args[i], 0))
-			cmd->exit = (printf("bash: unset: `%s': not a valid identifier\n",
-						cmd->args[i]) > 0);
+			cmd->exit = (print_err("unset", "`%s': not a valid identifier",
+						cmd->args[i]) > 0) * cmd->exit + !cmd->exit;
 		else if (var_id != -1 && ft_strncmp(cmd->args[i], "_",
 				ft_strlen(cmd->args[i])))
 		{
@@ -76,8 +75,8 @@ void	ft_export(t_cmd *cmd, char ***env)
 			}
 		}
 		else
-			cmd->exit = (printf("bash: export: `%s': not a valid identifier\n",
-						cmd->args[i]) > 0);
+			cmd->exit = (print_err("export", "`%s': not a valid identifier",
+						cmd->args[i]) > 0) * cmd->exit + !cmd->exit;
 		i++;
 	}
 }

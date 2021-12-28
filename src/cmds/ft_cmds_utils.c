@@ -45,17 +45,15 @@ void	non_built_in_command(t_cmd *cmd, char **env)
 {
 	char	*cmd_with_path;
 	char	**args;
-	char	*err;
 	int		i;
 
 	cmd_with_path = get_cmd_with_path(cmd, env);
 	if (cmd_with_path == NULL)
 	{
-		err = ft_strjoin("bash: ", cmd->nom);
-		ft_putstr_fd(ft_strapp(&err, ": command not found\n"), STDERR_FILENO);
+		print_err(cmd->nom, "command not found", NULL);
 		if (cmd->exit == 0)
 			cmd->exit = 127;
-		exit(cmd->exit);
+		return ;
 	}
 	args = ft_calloc(2, sizeof(char *));
 	args[0] = ft_strdup(cmd->nom);
@@ -70,38 +68,19 @@ void	non_built_in_command(t_cmd *cmd, char **env)
 	execve(cmd_with_path, args, env);
 }
 
-void	get_env_from_child(t_cmd *cmd, char ***env, int fd[2])
-{
-	char	*env_line;
-	int		i;
-
-	i = -1 * (cmd->pid == 0);
-	if (cmd->pid != 0)
-	{
-		free_2d_array((void **)*env);
-		*env = ft_calloc(1, sizeof(char *));
-		while (get_next_line(fd[0], &env_line) && !ft_strchr(env_line, '\04'))
-		{
-			*env = ft_realloc(*env, (i + 1) * sizeof(char *),
-					(i + 2) * sizeof(char *));
-			(*env)[i++] = ft_strdup(env_line);
-			free(env_line);
-		}
-		free(env_line);
-	}
-	else
-	{
-		while ((*env)[++i])
-			ft_putstr_fd(ft_strapp(&(*env)[i], "\n"), fd[1]);
-		free_2d_array((void **)*env);
-		ft_putstr_fd("\04\n", fd[1]);
-		exit(cmd->exit);
-	}
-}
-
 int	cmd_name_is(t_cmd *cmd, char *str)
 {
 	if (cmd->nom)
 		return (ft_strcmp(cmd->nom, str) == 0);
 	return (0);
+}
+
+int	is_built_in_cmd(t_cmd *cmd)
+{
+	if (cmd->nom)
+		return (cmd_name_is(cmd, "echo") || cmd_name_is(cmd, "env")
+			|| cmd_name_is(cmd, "unset") || cmd_name_is(cmd, "export")
+			|| cmd_name_is(cmd, "cd") || cmd_name_is(cmd, "pwd")
+			|| cmd_name_is(cmd, "exit"));
+	return (1);
 }

@@ -48,5 +48,4 @@ void	ft_echo(t_cmd *cmd)
 	}
 	if (!flag_n)
 		printf("\n");
-	exit(cmd->exit);
 }

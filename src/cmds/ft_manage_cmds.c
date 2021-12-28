@@ -40,14 +40,14 @@ static void	manage_pipes(int (**pipes)[2], const t_cmd **cmds, int create)
 		free(*pipes);
 }
 
-static void	exec_cmd_by_name(t_cmd *cmd, char ***env, int fd_env[2], int getenv)
+static void	exec_cmd_by_name(t_cmd *cmd, char ***env)
 {
-	if (cmd->pid == 0)
+	if (cmd->pid == 0 || cmd->pid == -1)
 	{
 		if (cmd_name_is(cmd, "echo"))
 			ft_echo(cmd);
 		else if (cmd_name_is(cmd, "env"))
-			ft_env(*env, cmd->exit);
+			ft_env(*env);
 		else if (cmd_name_is(cmd, "unset"))
 			ft_unset(cmd, *env);
 		else if (cmd_name_is(cmd, "export"))
@@ -55,8 +55,6 @@ static void	exec_cmd_by_name(t_cmd *cmd, char ***env, int fd_env[2], int getenv)
 		else
 			non_built_in_command(cmd, *env);
 	}
-	if ((cmd_name_is(cmd, "export") || cmd_name_is(cmd, "unset")) && getenv)
-		get_env_from_child(cmd, env, fd_env);
 	if (cmd->pid == 0)
 		exit(cmd->exit);
 }
@@ -64,16 +62,15 @@ static void	exec_cmd_by_name(t_cmd *cmd, char ***env, int fd_env[2], int getenv)
 void	manage_cmds(t_cmd **cmds, char ***env)
 {
 	int	(*pipes)[2];
-	int	fd_env[2];
 	int	i;
 
 	manage_pipes(&pipes, (const t_cmd **)cmds, 1);
-	pipe(fd_env);
 	i = 0;
 	while (cmds[i])
 	{
-		cmds[i]->pid = fork();
-		if (cmds[i]->pid == 0)
+		if (!is_built_in_cmd(cmds[i]) || i > 0 || cmds[i + 1])
+			cmds[i]->pid = fork();
+		if (cmds[i]->pid == 0 || cmds[i]->pid == -1)
 		{
 			if (cmds[i + 1])
 				dup2(pipes[i][1], STDOUT_FILENO);
@@ -81,7 +78,7 @@ void	manage_cmds(t_cmd **cmds, char ***env)
 				dup2(pipes[i - 1][0], STDIN_FILENO);
 			manage_pipes(&pipes, (const t_cmd **)cmds, 0);
 		}
-		exec_cmd_by_name(cmds[i], env, fd_env, (i == 0 && cmds[i + 1] == NULL));
+		exec_cmd_by_name(cmds[i], env);
 		i++;
 	}
 	manage_pipes(&pipes, (const t_cmd **)cmds, 0);

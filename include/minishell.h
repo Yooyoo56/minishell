@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/17 16:46:48 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/29 15:04:14 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		err_chevrons_space(const char *line);
 //ft_parse_pipes.c
 int		err_pipes(const char *line);
 int		err_pipe_space(const char *line);
+int		err_pipe_space_str(const char *line);
 // ft_parse_utils.c
 void	erase_str(char *str, int start, int nb_chars);
 int		is_operator(char c);

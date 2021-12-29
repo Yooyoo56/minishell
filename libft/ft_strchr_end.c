@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr_end.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: whazami <whazami@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 08:05:32 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/17 14:08:56 by whazami          ###   ########.fr       */
+/*   Created: 2021/05/21 20:11:56 by whazami           #+#    #+#             */
+/*   Updated: 2021/05/21 20:12:04 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strchr_end(const char *s, int c)
 {
-	int		i;
-
-	i = 1;
-	while (i < argc)
+	while (1)
 	{
-		printf("arg %d: %s\n", i - 1, argv[i]);
-		i++;
+		if (*s == (char)c || !*s)
+			return ((char *)s);
+		s++;
 	}
-	return (0);
 }

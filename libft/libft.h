@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 10:57:36 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/12 01:32:38 by whazami          ###   ########.fr       */
+/*   Updated: 2021/12/17 01:43:04 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstcreate(void *contents, size_t lst_size, size_t type_size);
 long	power(int nb, int pow);
 void	*ft_realloc(void *old_ptr, size_t old_len, size_t new_len);
+int		ft_strcmp(char *s1, char *s2);
+void	ft_swap(void *a, void *b, size_t len);
+char	*ft_strchr_end(const char *s, int c);
 
 #endif

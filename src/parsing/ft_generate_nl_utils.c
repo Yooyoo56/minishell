@@ -52,3 +52,29 @@ char	get_non_printable(char c)
 		return (PIPE_);
 	return (c);
 }
+
+char	*ft_getenv(char *var_name, char **env)
+{
+	int		i;
+	int		equal_pos;
+	char	*str_before_equal;
+
+	i = 0;
+	while (env[i])
+	{
+		equal_pos = ft_strchr(env[i], '=') - env[i];
+		if (equal_pos < 0)
+			equal_pos = ft_strlen(env[i]);
+		str_before_equal = ft_substr(env[i], 0, equal_pos);
+		if (ft_strcmp(str_before_equal, var_name) == 0)
+		{
+			free(str_before_equal);
+			if (equal_pos >= 0)
+				return (ft_substr(env[i], equal_pos + 1, ft_strlen(env[i])));
+			return (ft_strdup(""));
+		}
+		free(str_before_equal);
+		i++;
+	}
+	return (ft_strdup(""));
+}

@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 08:05:32 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/17 14:08:56 by whazami          ###   ########.fr       */
+/*   Created: 2021/12/16 21:12:21 by whazami           #+#    #+#             */
+/*   Updated: 2021/12/16 21:12:47 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int		i;
+	int		cpt;
 
-	i = 1;
-	while (i < argc)
-	{
-		printf("arg %d: %s\n", i - 1, argv[i]);
-		i++;
-	}
-	return (0);
+	cpt = 0;
+	while (s1[cpt] != '\0' && s2[cpt] != '\0' && s1[cpt] == s2[cpt])
+		cpt++;
+	return (s1[cpt] - s2[cpt]);
 }

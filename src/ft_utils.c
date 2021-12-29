@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 17:54:35 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/13 15:51:09 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/17 22:34:58 by whazami          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,7 @@ void	free_cmds(t_cmd **cmds)
 			free(cmds[i]->nom);
 		if (cmds[i]->flag)
 			free(cmds[i]->flag);
-		if (cmds[i]->args)
-			free_2d_array((void **)cmds[i]->args);
+		free_2d_array((void **)cmds[i]->args);
 		j = 0;
 		while (cmds[i]->redirs && cmds[i]->redirs[j])
 		{
@@ -51,6 +50,22 @@ void	free_cmds(t_cmd **cmds)
 		i++;
 	}
 	free(cmds);
+}
+
+int	is_empty(char *str)
+{
+	int	i;
+
+	if (ft_strlen(str) == 0)
+		return (1);
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isspace(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 static void	print_redir(t_redir *redir)

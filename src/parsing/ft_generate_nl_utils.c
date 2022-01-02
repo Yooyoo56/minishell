@@ -45,11 +45,11 @@ char	get_non_printable(char c)
 	if (c == ' ')
 		return (ESPACE);
 	if (c == '<')
-		return (INF_);
+		return (INF);
 	if (c == '>')
-		return (SUP_);
+		return (SUP);
 	if (c == '|')
-		return (PIPE_);
+		return (PIPE);
 	return (c);
 }
 

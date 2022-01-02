@@ -36,7 +36,7 @@ static void	fill_redirs_and_remove_them(t_cmd *cmd, char *s)
 				|| s[opi + nb_ + j] == '_' || s[opi + nb_ + j] == '-'
 				|| s[opi + nb_ + j] == '.' || s[opi + nb_ + j] == ','))
 			cmd->redirs[i]->file[j - 1] = s[opi + nb_ + j];
-		j = (get_op(s, &opi) == DOUBLE_INF || get_op(s, &opi) == DOUBLE_SUP);
+		j = (get_op(s, &opi) == HEREDOC || get_op(s, &opi) == APPEND);
 		erase_str(s, opi - j, 1 + j + nb_ + ft_strlen(cmd->redirs[i++]->file));
 	}
 }
@@ -76,11 +76,11 @@ static void	replace_non_printables_in_str(char *str)
 		{
 			if (str[i] == ESPACE)
 				str[i] = ' ';
-			else if (str[i] == INF_)
+			else if (str[i] == INF)
 				str[i] = '<';
-			else if (str[i] == SUP_)
+			else if (str[i] == SUP)
 				str[i] = '>';
-			else if (str[i] == PIPE_)
+			else if (str[i] == PIPE)
 				str[i] = '|';
 			else if (str[i] == END_)
 				str[i] = '\0';

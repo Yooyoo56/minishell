@@ -25,11 +25,11 @@
 
 # define END_	25
 # define ESPACE 26
-# define INF_	29
-# define SUP_	30
-# define PIPE_	31
+# define INF	29
+# define SUP	30
+# define PIPE	31
 
-typedef enum OP { NONE, INF, DOUBLE_INF, SUP, DOUBLE_SUP }	t_op;
+typedef enum OP { NONE, IN, HEREDOC, OUT, APPEND }	t_op;
 
 typedef struct s_redir
 {

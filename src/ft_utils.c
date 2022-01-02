@@ -100,13 +100,13 @@ int	print_err(char *cmd_name, char *error, char *arg)
 static void	print_redir(t_redir *redir)
 {
 	printf("op: ");
-	if (redir->op == INF)
+	if (redir->op == IN)
 		printf("<");
-	else if (redir->op == DOUBLE_INF)
+	else if (redir->op == HEREDOC)
 		printf("<<");
-	else if (redir->op == SUP)
+	else if (redir->op == OUT)
 		printf(">");
-	else if (redir->op == DOUBLE_SUP)
+	else if (redir->op == APPEND)
 		printf(">>");
 	printf(", file: %s}", redir->file);
 }

@@ -43,13 +43,13 @@ t_op	get_op(char *line, int *op_index)
 			{
 				*op_index = i + 1;
 				if (line[i] == '<')
-					return (DOUBLE_INF);
-				return (DOUBLE_SUP);
+					return (HEREDOC);
+				return (APPEND);
 			}
 			*op_index = i;
 			if (line[i] == '<')
-				return (INF);
-			return (SUP);
+				return (IN);
+			return (OUT);
 		}
 		i++;
 	}

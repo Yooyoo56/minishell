@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:48:02 by ytak              #+#    #+#             */
-/*   Updated: 2022/01/03 14:03:20 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/03 16:40:43 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,3 +50,23 @@ void	ft_pwd(void)
 	else
 		printf("%s\n", buf);
 }
+
+void ft_cd(t_cmd *cmd)
+{
+	if (cmd->nom)
+	{
+		chdir(getenv("HOME"));
+		printf("cd: %s\n", getenv("HOME"));
+	}
+/*	if (strcmp(cmd->nom, "cd") == 0)
+	{
+		chdir(getenv("HOME"));
+		printf("cd: %s\n", getenv("HOME"));
+	}*/
+	if (cmd->args[0])
+	{
+		chdir(getenv(cmd->args[0]));
+		printf("cd dir:%s\n", getenv(cmd->args[0]));
+	}
+}
+

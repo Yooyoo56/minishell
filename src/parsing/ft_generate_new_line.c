@@ -73,7 +73,10 @@ static int	env_var_to_val(char *var, char **env, char **line, int *indexes[3])
 	char	*tmps[3];
 	int		sizes[2];
 
-	var_expands = ft_getenv(var, env);
+	if (ft_strcmp(var, "?") == 0)
+		var_expands = ft_itoa(exit_code);
+	else
+		var_expands = ft_getenv(var, env);
 	tmps[1] = ft_substr(*line, 0, *indexes[2]);
 	tmps[2] = ft_substr(*line, *indexes[2] + ft_strlen(var) + 1,
 			ft_strlen(*line));
@@ -110,6 +113,8 @@ static void	manage_dollars(char **line, int index[2], char **env)
 		var_name = (char *)ft_calloc(index[1] - index[0] + 2, sizeof(char));
 		while (++i < index[1] && (ft_isalnum((*line)[i]) || (*line)[i] == '_'))
 			var_name[i - (dollar_i + 1)] = (*line)[i];
+		if ((*line)[dollar_i + 1] == '?')
+			var_name[0] = '?';
 		len_var_expands = 1;
 		if (ft_strlen(var_name))
 			len_var_expands = env_var_to_val(var_name,

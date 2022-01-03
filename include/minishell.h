@@ -13,8 +13,9 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
+# include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -28,6 +29,8 @@
 # define INF	29
 # define SUP	30
 # define PIPE	31
+
+int	exit_code;
 
 typedef enum OP { NONE, IN, HEREDOC, OUT, APPEND }	t_op;
 

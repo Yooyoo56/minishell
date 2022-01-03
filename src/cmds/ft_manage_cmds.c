@@ -97,7 +97,7 @@ static int	manage_redirs(t_cmd *cmd)
 			{
 				print_err(cmd->redirs[i]->file, "No such file or directory", 0);
 				if (cmd->pid == 0)
-					exit(cmd->exit);
+					exit(1);
 				return (0);
 			}
 		}
@@ -114,6 +114,30 @@ static int	manage_redirs(t_cmd *cmd)
 		i++;
 	}
 	return (1);
+}
+
+static void	wait_children(t_cmd **cmds)
+{
+	int i;
+	int	status;
+
+	i = 0;
+	while (cmds[i])
+	{
+		if (cmds[i + 1])
+			waitpid(cmds[i]->pid, NULL, 0);
+		else
+		{
+			waitpid(cmds[i]->pid, &status, 0);
+			if (WIFEXITED(status))
+			{
+				exit_code = WEXITSTATUS(status);
+				return ;
+			}
+		}
+		i++;
+	}
+	exit_code = cmds[0]->exit;
 }
 
 void	manage_cmds(t_cmd **cmds, char ***env)
@@ -143,7 +167,5 @@ void	manage_cmds(t_cmd **cmds, char ***env)
 		i++;
 	}
 	manage_pipes(&pipes, (const t_cmd **)cmds, 0);
-	i = 0;
-	while (cmds[i])
-		waitpid(cmds[i++]->pid, NULL, 0);
+	wait_children(cmds);
 }

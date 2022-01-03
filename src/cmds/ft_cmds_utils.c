@@ -51,8 +51,7 @@ void	non_built_in_command(t_cmd *cmd, char **env)
 	if (cmd_with_path == NULL)
 	{
 		print_err(cmd->nom, "command not found", NULL);
-		if (cmd->exit == 0)
-			cmd->exit = 127;
+		cmd->exit = 127;
 		return ;
 	}
 	args = ft_calloc(2, sizeof(char *));

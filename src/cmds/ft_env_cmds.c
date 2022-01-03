@@ -37,7 +37,7 @@ void	ft_unset(t_cmd *cmd, char **env)
 		var_id = get_var_id(cmd->args[i], env);
 		if (!identifier_is_valid(cmd->args[i], 0))
 			cmd->exit = (print_err("unset", "`%s': not a valid identifier",
-						cmd->args[i]) > 0) * cmd->exit + !cmd->exit;
+						cmd->args[i]) > 0);
 		else if (var_id != -1 && ft_strncmp(cmd->args[i], "_",
 				ft_strlen(cmd->args[i])))
 		{
@@ -76,7 +76,7 @@ void	ft_export(t_cmd *cmd, char ***env)
 		}
 		else
 			cmd->exit = (print_err("export", "`%s': not a valid identifier",
-						cmd->args[i]) > 0) * cmd->exit + !cmd->exit;
+						cmd->args[i]) > 0);
 		i++;
 	}
 }

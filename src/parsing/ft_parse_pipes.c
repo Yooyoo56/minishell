@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:05:49 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/29 16:01:03 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/03 14:09:48 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,12 @@ int	err_pipe_space_str(const char *line)
 	int	i;
 
 	i = 0;
-	while (line[i])
-	{
-		if (line[i] == '|')
-		{
-//			if (line[i + 1] == '|')
-//				i++;
-			while (line[i] == ' ')
-				i++;
-			if (line[i] == '|'  || line[i] == '\0')
-			{
-				printf("Yooyoo did it when wael is in USA. So, there are some problems..\n");
-//				printf("bash: syntax error near unexpected token `|'\n");
-				return (1);
-			}
-		}
+	while (line[i] && line[i] == ' ')
 		i++;
+	if (line[i] == '|')
+	{
+		printf("bash: syntax error near unexpected token `|'\n");
+		return (1);
 	}
 	return (0);
 }

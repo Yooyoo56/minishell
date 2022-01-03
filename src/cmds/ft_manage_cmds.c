@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:02:56 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/17 22:09:43 by whazami          ###   ########.fr       */
+/*   Updated: 2022/01/03 14:03:35 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ void	manage_cmds(t_cmd **cmds, char ***env)
 			ft_export(cmds[i], env);
 		else if (cmd_name_is(cmds[i], "echo"))
 			ft_echo(cmds[i]);
+		else if (cmd_name_is(cmds[i], "pwd"))
+			ft_pwd();
+//		else if (cmd_name_is(cmds[i], "cd"))
+//			ft_cd();
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/29 15:36:58 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/03 13:46:58 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/history.h>
 # include <term.h>
 # include <curses.h>
+# include <sys/errno.h>
 # include "../libft/libft.h"
 
 # define END_	25
@@ -80,8 +81,9 @@ int		is_operator(char c);
 t_op	get_op(char *line, int *op_nbr);
 
 /* cmds */
-// ft_cmds_echo.c
+// ft_cmds_echo_pwd.c
 void	ft_echo(t_cmd *cmd);
+void	ft_pwd(void);
 // ft_cmds_utils.c
 int		cmd_name_is(t_cmd *cmd, char *str);
 // ft_env_cmds.c

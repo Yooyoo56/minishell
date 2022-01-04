@@ -6,7 +6,7 @@
 #    By: ytak <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 14:49:45 by ytak              #+#    #+#              #
-#    Updated: 2022/01/04 07:30:45 by whazami          ###   ########.fr        #
+#    Updated: 2022/01/03 13:47:20 by ytak             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS	= main.c \
 		  parsing/ft_parse_chevrons.c \
 		  parsing/ft_parse_pipes.c \
 		  parsing/ft_parsing_utils.c \
-		  cmds/ft_cmds_echo.c \
+		  cmds/ft_cmds_echo_pwd.c \
 		  cmds/ft_cmds_utils.c \
 		  cmds/ft_env_cmds.c \
 		  cmds/ft_env_utils.c \

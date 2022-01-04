@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:02:56 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/17 22:09:43 by whazami          ###   ########.fr       */
+/*   Updated: 2022/01/03 16:03:27 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,18 @@ static void	manage_std_fds(int std_fds[2], int pid, int save)
 
 static void	exec_cmd_by_name(t_cmd *cmd, char ***env)
 {
-	if (cmd_name_is(cmd, "echo"))
-		ft_echo(cmd);
-	else if (cmd_name_is(cmd, "env"))
+	if (cmd_name_is(cmd, "env"))
 		ft_env(*env);
 	else if (cmd_name_is(cmd, "unset"))
 		ft_unset(cmd, *env);
 	else if (cmd_name_is(cmd, "export"))
 		ft_export(cmd, env);
+	else if (cmd_name_is(cmd, "echo"))
+		ft_echo(cmd);
+	else if (cmd_name_is(cmd, "pwd"))
+		ft_pwd();
+	else if (cmd_name_is(cmd, "cd"))
+		ft_cd(cmd);
 	else if (cmd->nom)
 		non_built_in_command(cmd, *env);
 	if (cmd->pid == 0)

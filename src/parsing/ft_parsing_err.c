@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 17:46:18 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/17 15:04:01 by ytak             ###   ########.fr       */
+/*   Updated: 2021/12/29 16:53:29 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ int	parsing_error(const char *line)
 	if (err_chevrons_space(line))
 		return (1);
 	if (err_pipe_space(line))
+		return (1);
+	if (err_pipe_space_str(line))
 		return (1);
 	if (err_combine_quotes(line))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/17 14:05:49 by ytak              #+#    #+#             */
-/*   Updated: 2021/12/17 14:07:40 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/03 14:09:48 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,21 @@ int	err_pipe_space(const char *line)
 			}
 		}
 		i++;
+	}
+	return (0);
+}
+
+int	err_pipe_space_str(const char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && line[i] == ' ')
+		i++;
+	if (line[i] == '|')
+	{
+		printf("bash: syntax error near unexpected token `|'\n");
+		return (1);
 	}
 	return (0);
 }

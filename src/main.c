@@ -22,7 +22,7 @@ int	main(int argc, char **argv, char **env)
 	init_env(&env);
 	print_header();
 	line = readline("$> ");
-	while (ft_strncmp(line, "exit", 4) != 0)
+	while (ft_strcmp(line, "exit") != 0)
 	{
 		if (!is_empty(line))
 		{

@@ -6,7 +6,7 @@
 #    By: ytak <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 14:49:45 by ytak              #+#    #+#              #
-#    Updated: 2021/12/26 03:45:11 by whazami          ###   ########.fr        #
+#    Updated: 2022/01/04 07:30:45 by whazami          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRCS	= main.c \
 		  cmds/ft_cmds_utils.c \
 		  cmds/ft_env_cmds.c \
 		  cmds/ft_env_utils.c \
-		  cmds/ft_manage_cmds.c
+		  cmds/ft_manage_cmds.c \
+		  cmds/ft_redirections.c
 
 OBJ_DIR	= obj/
 OBJS	= ${SRCS:.c=.o}

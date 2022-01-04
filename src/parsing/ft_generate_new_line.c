@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+extern int	g_exit_code;
+
 static void	find_start_end(char *line, int index[2], char *quote)
 {
 	int	i;
@@ -74,7 +76,7 @@ static int	env_var_to_val(char *var, char **env, char **line, int *indexes[3])
 	int		sizes[2];
 
 	if (ft_strcmp(var, "?") == 0)
-		var_expands = ft_itoa(exit_code);
+		var_expands = ft_itoa(g_exit_code);
 	else
 		var_expands = ft_getenv(var, env);
 	tmps[1] = ft_substr(*line, 0, *indexes[2]);

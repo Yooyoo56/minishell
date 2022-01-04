@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
 # include <term.h>
 # include <curses.h>
 # include "../libft/libft.h"
@@ -30,7 +31,7 @@
 # define SUP	30
 # define PIPE	31
 
-int	exit_code;
+int	g_exit_code;
 
 typedef enum OP { NONE, IN, HEREDOC, OUT, APPEND }	t_op;
 
@@ -103,5 +104,8 @@ void	print_sorted_env(char **env);
 void	add_var_to_env(char *var, char ***env);
 // ft_manage_cmds.c
 void	manage_cmds(t_cmd **cmds, char ***env);
+// ft_redirections.c
+void	manage_heredocs(t_cmd **cmds);
+int		manage_redirs(t_cmd *cmd);
 
 #endif

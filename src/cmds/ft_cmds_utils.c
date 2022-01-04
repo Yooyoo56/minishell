@@ -41,19 +41,12 @@ static char	*get_cmd_with_path(t_cmd *cmd, char **env)
 	return (cmd_with_path);
 }
 
-void	non_built_in_command(t_cmd *cmd, char **env)
+static void	exec_non_built_in(t_cmd *cmd, char *cmd_with_path, char **env)
 {
-	char	*cmd_with_path;
-	char	**args;
-	int		i;
+	char		**args;
+	struct stat	statbuf;
+	int			i;
 
-	cmd_with_path = get_cmd_with_path(cmd, env);
-	if (cmd_with_path == NULL)
-	{
-		print_err(cmd->nom, "command not found", NULL);
-		cmd->exit = 127;
-		return ;
-	}
 	args = ft_calloc(2, sizeof(char *));
 	args[0] = ft_strdup(cmd->nom);
 	i = 0;
@@ -65,6 +58,28 @@ void	non_built_in_command(t_cmd *cmd, char **env)
 		i++;
 	}
 	execve(cmd_with_path, args, env);
+	free(cmd_with_path);
+	free_2d_array((void **)args);
+	stat(cmd->nom, &statbuf);
+	if (S_ISDIR(statbuf.st_mode))
+		print_err(cmd->nom, "Is a directory", NULL);
+}
+
+void	non_built_in_command(t_cmd *cmd, char **env)
+{
+	char		*cmd_with_path;
+
+	cmd_with_path = get_cmd_with_path(cmd, env);
+	if (cmd_with_path == NULL)
+	{
+		if (cmd->nom[0] == '.' || cmd->nom[0] == '/')
+			print_err(cmd->nom, "No such file or directory", NULL);
+		else
+			print_err(cmd->nom, "command not found", NULL);
+		cmd->exit = 127;
+		return ;
+	}
+	exec_non_built_in(cmd, cmd_with_path, env);
 }
 
 int	cmd_name_is(t_cmd *cmd, char *str)

@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2022/01/03 16:02:31 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/04 13:34:21 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ t_op	get_op(char *line, int *op_nbr);
 // ft_cmds_echo_pwd.c
 void	ft_echo(t_cmd *cmd);
 void	ft_pwd(void);
-void	ft_cd(t_cmd	*cmd);
+void	ft_cd(t_cmd	*cmd, char **env);
+void	ft_exit(t_cmd *cmd);
 // ft_cmds_utils.c
 void	non_built_in_command(t_cmd *cmd, char **env);
 int		cmd_name_is(t_cmd *cmd, char *str);

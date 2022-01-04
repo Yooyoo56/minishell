@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:48:02 by ytak              #+#    #+#             */
-/*   Updated: 2022/01/03 16:40:43 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/04 15:24:59 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,72 @@ void	ft_pwd(void)
 		printf("%s\n", buf);
 }
 
-void ft_cd(t_cmd *cmd)
+void ft_cd(t_cmd *cmd, char **env)
 {
-	if (cmd->nom)
+	char *str;
+
+	str = ft_getenv("HOME", env);
+	if (cmd->nom && cmd->args[0] == NULL)
 	{
-		chdir(getenv("HOME"));
-		printf("cd: %s\n", getenv("HOME"));
+		if (str[0] == '\0')
+		{
+			print_err("cd", "HOME not set", NULL);
+			cmd->exit = 1;
+		}
+		else
+		{
+			chdir(str);
+			printf("cd: %s\n", str);
+		}
 	}
-/*	if (strcmp(cmd->nom, "cd") == 0)
+	//stat ==> il faut regarder
+	// 1) gestion d'erreur : if directory doesn't exit
+	// error :  No such file or directory
+	else if (cmd->args[0])
 	{
-		chdir(getenv("HOME"));
-		printf("cd: %s\n", getenv("HOME"));
-	}*/
-	if (cmd->args[0])
-	{
-		chdir(getenv(cmd->args[0]));
-		printf("cd dir:%s\n", getenv(cmd->args[0]));
+		chdir(cmd->args[0]);
+		printf("cd dir:%s\n",cmd->args[0]);
 	}
 }
 
+//gestion d'erreur
+//1) exit  323 3232 ( if there is 2eme argument -> error); done
+//2) exit 5454 (only the numbers can be here!!!)
+//3) exit + espace 
+//4) exit + 1rde (number + char)
+//5) exit + ererer454 (char + number)
+void	ft_exit(t_cmd *cmd)
+{
+	int i;
+
+	i = 0;
+	if (cmd->nom && cmd->args[0] == NULL)
+	{
+		cmd->exit = printf("exit\n");
+		exit(0);
+	}
+	else if (cmd->nom  && cmd->args[1])
+	{
+		cmd->exit = printf("exit\n");
+		print_err("exit", "too many arguments", NULL);
+		exit(0);
+	}
+	else if (cmd->nom && (ft_atoi(cmd->args[0]) == ft_isalpha(ft_atoi(cmd->args[0]))))
+	{
+		cmd->exit = printf("exit\n");
+		print_err("exit", "numeric argument required", NULL);
+	}
+
+	/*while(cmd->args[0][i])
+	{
+		if ((ft_atoi(cmd->args[0]) == ft_isdigit(ft_atoi(&cmd->args[0][i]))))
+		{
+			cmd->exit = printf("exit\n");
+			print_err("exit", "numeric argument required", NULL);
+			i++;
+	//		exit(0);
+		}
+		i++;
+	}*/
+
+}

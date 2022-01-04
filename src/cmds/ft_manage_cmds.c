@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 13:02:56 by ytak              #+#    #+#             */
-/*   Updated: 2022/01/03 16:03:27 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/04 13:45:46 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ static void	exec_cmd_by_name(t_cmd *cmd, char ***env)
 	else if (cmd_name_is(cmd, "pwd"))
 		ft_pwd();
 	else if (cmd_name_is(cmd, "cd"))
-		ft_cd(cmd);
+		ft_cd(cmd, *env);
+	else if (cmd_name_is(cmd, "exit"))
+		ft_exit(cmd);
 	else if (cmd->nom)
 		non_built_in_command(cmd, *env);
 	if (cmd->pid == 0)

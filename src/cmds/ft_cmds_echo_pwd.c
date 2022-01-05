@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:48:02 by ytak              #+#    #+#             */
-/*   Updated: 2022/01/04 15:24:59 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/05 17:40:32 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,57 +80,54 @@ void ft_cd(t_cmd *cmd, char **env)
 		else
 		{
 			chdir(str);
-			printf("cd: %s\n", str);
+//			printf("cd: %s\n", str);
 		}
 	}
-	//stat ==> il faut regarder
 	// 1) gestion d'erreur : if directory doesn't exit
-	// error :  No such file or directory
 	else if (cmd->args[0])
 	{
+		if (chdir(cmd->args[0]) == -1)
+	//		printf("bash: cd: %s: No such file or directory\n",cmd->args[0]);
+			print_err("cd", "No such file or directory", NULL);
 		chdir(cmd->args[0]);
-		printf("cd dir:%s\n",cmd->args[0]);
+		//printf("cd dir:%s\n",cmd->args[0]);
 	}
 }
+
 
 //gestion d'erreur
 //1) exit  323 3232 ( if there is 2eme argument -> error); done
 //2) exit 5454 (only the numbers can be here!!!)
 //3) exit + espace 
-//4) exit + 1rde (number + char)
+//4) exit + 1rr1 (number + char)
 //5) exit + ererer454 (char + number)
 void	ft_exit(t_cmd *cmd)
 {
 	int i;
 
 	i = 0;
-	if (cmd->nom && cmd->args[0] == NULL)
+//	while (cmd->args[i])  //=> can't detect 1r
+//	while (cmd->args[0][i])  // -> exit espace (seg fault)
+	while (cmd->nom && cmd->args[0][i]) // ->exit space  (seg fault, whyyy)
+	{
+			if((cmd->args[0][i] >= 'a' && cmd->args[0][i] <= 'z') || (cmd->args[0][i]>= 'A' && cmd->args[0][i] <= 'Z'))
+			{
+				cmd->exit = printf("exit\n");
+				print_err("exit", "numeric argument required", NULL);
+				exit(0);
+			}
+			i++;
+	}
+	if (cmd->nom && cmd->args[0] == '\0')
 	{
 		cmd->exit = printf("exit\n");
 		exit(0);
 	}
-	else if (cmd->nom  && cmd->args[1])
+	else if (cmd->nom && cmd->args[0] && cmd->args[1])
 	{
 		cmd->exit = printf("exit\n");
 		print_err("exit", "too many arguments", NULL);
 		exit(0);
 	}
-	else if (cmd->nom && (ft_atoi(cmd->args[0]) == ft_isalpha(ft_atoi(cmd->args[0]))))
-	{
-		cmd->exit = printf("exit\n");
-		print_err("exit", "numeric argument required", NULL);
-	}
-
-	/*while(cmd->args[0][i])
-	{
-		if ((ft_atoi(cmd->args[0]) == ft_isdigit(ft_atoi(&cmd->args[0][i]))))
-		{
-			cmd->exit = printf("exit\n");
-			print_err("exit", "numeric argument required", NULL);
-			i++;
-	//		exit(0);
-		}
-		i++;
-	}*/
-
 }
+

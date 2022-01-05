@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:48:02 by ytak              #+#    #+#             */
-/*   Updated: 2022/01/05 17:40:32 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/05 18:50:18 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_pwd(void)
 void ft_cd(t_cmd *cmd, char **env)
 {
 	char *str;
+	int i = 0;
 
 	str = ft_getenv("HOME", env);
 	if (cmd->nom && cmd->args[0] == NULL)
@@ -83,17 +84,42 @@ void ft_cd(t_cmd *cmd, char **env)
 //			printf("cd: %s\n", str);
 		}
 	}
+	while(cmd->args[i])
+	{
+		if (cmd->args[0][i] == '~')
+		{
+			if (cmd->args[0][i + 1] == '~')
+			{
+				print_err("cd", "No such file or directory", NULL);
+			}
+			chdir(str);
+		}
+		else if (chdir(cmd->args[0])== -1)
+			print_err("cd", "No such file or directory", NULL);
+		i++;
+	}
+
+/*	while (cmd->args[i])
+	{
+		if (chdir(cmd->args[0]) == -1)
+		{
+			print_err("cd", "No such file or directory", NULL);
+		}
+//		chdir(cmd->args[i]);
+		i++;
+	}*/
+
+/*
 	// 1) gestion d'erreur : if directory doesn't exit
-	else if (cmd->args[0])
+	while (cmd->args[0])
 	{
 		if (chdir(cmd->args[0]) == -1)
 	//		printf("bash: cd: %s: No such file or directory\n",cmd->args[0]);
 			print_err("cd", "No such file or directory", NULL);
 		chdir(cmd->args[0]);
 		//printf("cd dir:%s\n",cmd->args[0]);
-	}
+	} */
 }
-
 
 //gestion d'erreur
 //1) exit  323 3232 ( if there is 2eme argument -> error); done

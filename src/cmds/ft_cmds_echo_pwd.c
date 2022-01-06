@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:48:02 by ytak              #+#    #+#             */
-/*   Updated: 2022/01/06 12:19:43 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/06 12:44:19 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	ft_pwd(void)
 		printf("%s\n", buf);
 }
 
-void ft_cd(t_cmd *cmd, char **env)
+void	ft_cd(t_cmd *cmd, char **env)
 {
-	char *str;
+	char	*str;
 
 	str = ft_getenv("HOME", env);
 	if (cmd->nom && cmd->args[0] == NULL)
@@ -81,7 +81,7 @@ void ft_cd(t_cmd *cmd, char **env)
 			chdir(str);
 	}
 	if (cmd->args[0])
-		if (chdir(cmd->args[0])== -1)
+		if (chdir (cmd->args[0]) == -1)
 		{
 			if (access(cmd->args[0], F_OK) == 0)
 				print_err("cd", "%s: Not a directory", cmd->args[0]);
@@ -94,23 +94,21 @@ void ft_cd(t_cmd *cmd, char **env)
 
 void	ft_exit(t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (cmd->args[0] == NULL)
-	{
 		printf("exit\n");
-		exit(0);
-	}
+	exit(0);
 	while (cmd->args[0][i])
 	{
 		if (!(ft_isdigit(cmd->args[0][i])))
-			{
-				printf("exit\n");
-				print_err("exit", "%s: numeric argument required", cmd->args[0]);
-				exit(255);
-			}
-			i++;
+		{
+			printf("exit\n");
+			print_err("exit", "%s: numeric argument required", cmd->args[0]);
+			exit(255);
+		}
+		i++;
 	}
 	if (cmd->args[1])
 	{

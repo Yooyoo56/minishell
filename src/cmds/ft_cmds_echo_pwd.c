@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:48:02 by ytak              #+#    #+#             */
-/*   Updated: 2022/01/05 18:50:18 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/06 12:19:43 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	ft_pwd(void)
 void ft_cd(t_cmd *cmd, char **env)
 {
 	char *str;
-	int i = 0;
 
 	str = ft_getenv("HOME", env);
 	if (cmd->nom && cmd->args[0] == NULL)
@@ -79,81 +78,46 @@ void ft_cd(t_cmd *cmd, char **env)
 			cmd->exit = 1;
 		}
 		else
-		{
 			chdir(str);
-//			printf("cd: %s\n", str);
-		}
 	}
-	while(cmd->args[i])
-	{
-		if (cmd->args[0][i] == '~')
+	if (cmd->args[0])
+		if (chdir(cmd->args[0])== -1)
 		{
-			if (cmd->args[0][i + 1] == '~')
-			{
-				print_err("cd", "No such file or directory", NULL);
-			}
-			chdir(str);
+			if (access(cmd->args[0], F_OK) == 0)
+				print_err("cd", "%s: Not a directory", cmd->args[0]);
+			else
+				print_err("cd", "%s: No such file or directory", cmd->args[0]);
+			cmd->exit = 1;
 		}
-		else if (chdir(cmd->args[0])== -1)
-			print_err("cd", "No such file or directory", NULL);
-		i++;
-	}
-
-/*	while (cmd->args[i])
-	{
-		if (chdir(cmd->args[0]) == -1)
-		{
-			print_err("cd", "No such file or directory", NULL);
-		}
-//		chdir(cmd->args[i]);
-		i++;
-	}*/
-
-/*
-	// 1) gestion d'erreur : if directory doesn't exit
-	while (cmd->args[0])
-	{
-		if (chdir(cmd->args[0]) == -1)
-	//		printf("bash: cd: %s: No such file or directory\n",cmd->args[0]);
-			print_err("cd", "No such file or directory", NULL);
-		chdir(cmd->args[0]);
-		//printf("cd dir:%s\n",cmd->args[0]);
-	} */
+	free(str);
 }
 
-//gestion d'erreur
-//1) exit  323 3232 ( if there is 2eme argument -> error); done
-//2) exit 5454 (only the numbers can be here!!!)
-//3) exit + espace 
-//4) exit + 1rr1 (number + char)
-//5) exit + ererer454 (char + number)
 void	ft_exit(t_cmd *cmd)
 {
 	int i;
 
 	i = 0;
-//	while (cmd->args[i])  //=> can't detect 1r
-//	while (cmd->args[0][i])  // -> exit espace (seg fault)
-	while (cmd->nom && cmd->args[0][i]) // ->exit space  (seg fault, whyyy)
+	if (cmd->args[0] == NULL)
 	{
-			if((cmd->args[0][i] >= 'a' && cmd->args[0][i] <= 'z') || (cmd->args[0][i]>= 'A' && cmd->args[0][i] <= 'Z'))
+		printf("exit\n");
+		exit(0);
+	}
+	while (cmd->args[0][i])
+	{
+		if (!(ft_isdigit(cmd->args[0][i])))
 			{
-				cmd->exit = printf("exit\n");
-				print_err("exit", "numeric argument required", NULL);
-				exit(0);
+				printf("exit\n");
+				print_err("exit", "%s: numeric argument required", cmd->args[0]);
+				exit(255);
 			}
 			i++;
 	}
-	if (cmd->nom && cmd->args[0] == '\0')
+	if (cmd->args[1])
 	{
-		cmd->exit = printf("exit\n");
-		exit(0);
-	}
-	else if (cmd->nom && cmd->args[0] && cmd->args[1])
-	{
-		cmd->exit = printf("exit\n");
+		printf("exit\n");
 		print_err("exit", "too many arguments", NULL);
-		exit(0);
+		exit(1);
 	}
+	printf("exit\n");
+	exit(ft_atoi(cmd->args[0]));
 }
-

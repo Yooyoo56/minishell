@@ -6,7 +6,7 @@
 /*   By: ytak <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 13:48:02 by ytak              #+#    #+#             */
-/*   Updated: 2022/01/06 12:44:19 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/06 17:26:46 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,10 @@ void	ft_exit(t_cmd *cmd)
 
 	i = 0;
 	if (cmd->args[0] == NULL)
+	{
 		printf("exit\n");
-	exit(0);
+		exit(0);
+	}
 	while (cmd->args[0][i])
 	{
 		if (!(ft_isdigit(cmd->args[0][i])))

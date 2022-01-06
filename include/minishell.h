@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2022/01/06 12:20:11 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/06 13:36:19 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <term.h>
 # include <curses.h>
 # include <sys/errno.h>
+# include <signal.h>
+# include <sys/types.h>
 # include "../libft/libft.h"
 
 # define END_	25
@@ -93,6 +95,10 @@ void	ft_echo(t_cmd *cmd);
 void	ft_pwd(void);
 void	ft_cd(t_cmd	*cmd, char **env);
 void	ft_exit(t_cmd *cmd);
+//ft_signal.c
+void	interrupt_handler(int sig);
+void	cmd_signal(void);
+
 // ft_cmds_utils.c
 void	non_built_in_command(t_cmd *cmd, char **env);
 int		cmd_name_is(t_cmd *cmd, char *str);

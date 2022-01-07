@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/03 15:12:09 by whazami           #+#    #+#             */
-/*   Updated: 2022/01/06 13:36:19 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/07 14:05:48 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void	ft_exit(t_cmd *cmd);
 //ft_signal.c
 void	interrupt_handler(int sig);
 void	cmd_signal(void);
-
 // ft_cmds_utils.c
 void	non_built_in_command(t_cmd *cmd, char **env);
 int		cmd_name_is(t_cmd *cmd, char *str);

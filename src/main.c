@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:41:05 by whazami           #+#    #+#             */
-/*   Updated: 2022/01/06 16:04:13 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/07 15:02:40 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ int	main(int argc, char **argv, char **env)
 	line = readline("$> ");
 	while (ft_strcmp(line, "exit") != 0)
 	{
+		
+				cmd_signal();
 		if (!is_empty(line))
 		{
 			add_history(line);
 			cmds = parsing(line, env);
 			if (cmds)
 			{
-				//cmd_signal();
 				//print_cmds(cmds);
 				manage_cmds(cmds, &env);
 				free_cmds(cmds);

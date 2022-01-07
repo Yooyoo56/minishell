@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:41:05 by whazami           #+#    #+#             */
-/*   Updated: 2022/01/07 15:02:40 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/07 18:07:41 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	main(int argc, char **argv, char **env)
 	line = readline("$> ");
 	while (ft_strcmp(line, "exit") != 0)
 	{
-		
-				cmd_signal();
+		cmd_signal();
 		if (!is_empty(line))
 		{
 			add_history(line);

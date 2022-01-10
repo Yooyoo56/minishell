@@ -23,7 +23,7 @@ void	handler_sigquit(int sig, pid_t pid)
 			write(STDOUT_FILENO, "  \b\b", 4);
 		}
 		else
-			write(STDOUT_FILENO, "Quit\n", 5);
+			write(STDOUT_FILENO, "Quit: 3\n", 8);
 	}
 }
 

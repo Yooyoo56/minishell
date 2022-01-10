@@ -6,7 +6,7 @@
 #    By: ytak <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 14:49:45 by ytak              #+#    #+#              #
-#    Updated: 2022/01/10 15:01:06 by ytak             ###   ########.fr        #
+#    Updated: 2022/01/10 19:54:17 by ytak             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ OBJS	:= $(addprefix ${OBJ_DIR}, ${OBJS})
 
 NAME	= minishell
 
-CC		= gcc #-g3 -fsanitize=address
+CC		= gcc -g3 -fsanitize=address
 CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 

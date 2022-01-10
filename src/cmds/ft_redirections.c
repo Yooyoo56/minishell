@@ -6,7 +6,7 @@
 /*   By: whazami <whazami@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 06:57:31 by whazami           #+#    #+#             */
-/*   Updated: 2022/01/04 06:57:57 by whazami          ###   ########.fr       */
+/*   Updated: 2022/01/10 19:57:36 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@ static void	user_write_in_hdoc_file(int hdoc_fd, char *eof)
 	char	*line;
 
 	line = readline("> ");
-	while (ft_strcmp(line, eof) != 0)
+	if (line != NULL)
 	{
-		write(hdoc_fd, line, ft_strlen(line));
-		write(hdoc_fd, "\n", 1);
-		free(line);
-		line = readline("> ");
+		while (ft_strcmp(line, eof) != 0)
+		{
+			write(hdoc_fd, line, ft_strlen(line));
+			write(hdoc_fd, "\n", 1);
+			free(line);
+			line = readline("> ");
+			if (line == NULL)
+				break;
+		}
 	}
 	free(line);
 	close(hdoc_fd);

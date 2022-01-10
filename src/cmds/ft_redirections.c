@@ -78,7 +78,7 @@ void	manage_heredocs(t_cmd **cmds)
 	}
 }
 
-static int	init_fd(int *fd_in, int *fd_out, t_redir *redir, int pid)
+static int	init_fd(int *fd_in, int *fd_out, t_redir *redir, t_cmd *cmd)
 {
 	if (redir->op == OUT)
 		*fd_out = open(redir->file, O_CREAT | O_WRONLY | O_TRUNC, 0664);
@@ -90,8 +90,9 @@ static int	init_fd(int *fd_in, int *fd_out, t_redir *redir, int pid)
 		if (*fd_in == -1)
 		{
 			print_err(redir->file, "No such file or directory", 0);
-			if (pid == 0)
+			if (cmd->pid == 0)
 				exit(1);
+			cmd->exit = 1;
 			return (0);
 		}
 	}
@@ -107,7 +108,7 @@ int	manage_redirs(t_cmd *cmd)
 	i = 0;
 	while (cmd->redirs[i])
 	{
-		if (!init_fd(&fd_in, &fd_out, cmd->redirs[i], cmd->pid))
+		if (!init_fd(&fd_in, &fd_out, cmd->redirs[i], cmd))
 			return (0);
 		if (cmd->redirs[i]->op == OUT || cmd->redirs[i]->op == APPEND)
 		{

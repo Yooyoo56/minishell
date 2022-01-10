@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 02:41:05 by whazami           #+#    #+#             */
-/*   Updated: 2022/01/07 18:07:41 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/10 14:54:07 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,26 +21,22 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	init_env(&env);
 	print_header();
-	line = readline("$> ");
-	while (ft_strcmp(line, "exit") != 0)
+	while (42)
 	{
 		cmd_signal();
+		line = readline("$> ");
 		if (!is_empty(line))
 		{
 			add_history(line);
 			cmds = parsing(line, env);
 			if (cmds)
 			{
-				//print_cmds(cmds);
 				manage_cmds(cmds, &env);
 				free_cmds(cmds);
 			}
 		}
 		free(line);
-		line = readline("$> ");
 	}
-	free(line);
 	free_2d_array((void **)env);
-	//system("leaks minishell");
 	return (0);
 }

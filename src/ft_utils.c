@@ -54,6 +54,13 @@ int	is_empty(char *str)
 {
 	int	i;
 
+	if (str == NULL)
+	{
+		printf("\x1b[1F");
+		printf("\x1b[2K");
+		printf("$> exit\n");
+		exit(0);
+	}
 	if (ft_strlen(str) == 0)
 		return (1);
 	i = 0;
@@ -95,47 +102,6 @@ int	print_err(char *cmd_name, char *error, char *arg)
 	free(str);
 	free(cp);
 	return (prc_pos);
-}
-
-static void	print_redir(t_redir *redir)
-{
-	printf("op: ");
-	if (redir->op == IN)
-		printf("<");
-	else if (redir->op == HEREDOC)
-		printf("<<");
-	else if (redir->op == OUT)
-		printf(">");
-	else if (redir->op == APPEND)
-		printf(">>");
-	printf(", file: %s}", redir->file);
-}
-
-void	print_cmds(t_cmd **cmds)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (cmds[i])
-	{
-		printf("{name: %s", cmds[i]->nom);
-		j = 0;
-		while (cmds[i]->args[j])
-		{
-			printf(", arg %d: %s", j, cmds[i]->args[j]);
-			j++;
-		}
-		j = 0;
-		while (cmds[i]->redirs[j])
-		{
-			printf(", {redir %d: ", j);
-			print_redir(cmds[i]->redirs[j]);
-			j++;
-		}
-		printf("}\n");
-		i++;
-	}
 }
 
 void	print_header(void)

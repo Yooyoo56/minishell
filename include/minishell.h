@@ -58,32 +58,32 @@ void	free_2d_array(void **arr);
 void	free_cmds(t_cmd **cmds);
 int		is_empty(char *str);
 int		print_err(char *cmd_name, char *error, char *error_parameter);
-void	print_cmds(t_cmd **cmd);
 void	print_header(void);
 
 /* parsing */
+/* error */
+//ft_chevrons.c
+int		err_multiple_chevrons(const char *line);
+int		err_chevrons_reverse(const char *line);
+int		err_chevrons_space(const char *line);
+// ft_manage_err.c
+int		err_combine_quotes(const char *line);
+int		err_slash(const char *line);
+int		err_semicolon(const char *line);
+int		parsing_error(const char *line);
+//ft_pipes.c
+int		err_pipes(const char *line);
+int		err_pipe_space(const char *line);
+int		err_pipe_space_str(const char *line);
 // ft_generate_new_line.c (manages quotes, $ and non printables)
 char	*generate_new_line(const char *line, char **env);
-// ft_generate_nl_utils.c
+// ft_generate_new_line_utils.c
 char	*ft_strchri(char *s, char c, int start, int stop);
 void	erase_char(char *str, int index);
 char	get_non_printable(char c);
 char	*ft_getenv(char *var_name, char **env);
 // ft_parse_cmds.c
 t_cmd	**parsing(const char *line, char **env);
-// ft_parsing_err.c
-int		err_combine_quotes(const char *line);
-int		err_slash(const char *line);
-int		err_semicolon(const char *line);
-int		parsing_error(const char *line);
-//ft_parse_chevrons.c
-int		err_multiple_chevrons(const char *line);
-int		err_chevrons_reverse(const char *line);
-int		err_chevrons_space(const char *line);
-//ft_parse_pipes.c
-int		err_pipes(const char *line);
-int		err_pipe_space(const char *line);
-int		err_pipe_space_str(const char *line);
 // ft_parse_utils.c
 void	erase_str(char *str, int start, int nb_chars);
 int		is_operator(char c);

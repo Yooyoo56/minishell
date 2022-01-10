@@ -21,24 +21,17 @@ NAME	= libft.a
 AR		= ar rc
 RM		= rm -f
 
-define printf_make
-	cd printf && ${MAKE} $(1) && cd ..
-endef
-
 .c.o:
 			gcc -Wall -Wextra -Werror -c $< -o ${<:.c=.o}
 
 all:		${NAME}
 
 ${NAME}:	${OBJS} ${OBJS_B} $(addprefix ${GNL_DIR}, ${OBJS_GNL})
-			$(call printf_make, libftprintf.a)
-			cp printf/libftprintf.a ${NAME}
 			@echo "\033[95m\nCompiling libft 🤓...\033[0m"
 			${AR} ${NAME} ${OBJS} ${OBJS_B} $(addprefix ${GNL_DIR}, ${OBJS_GNL})
 			ranlib ${NAME}
 
 clean:
-			$(call printf_make, clean)
 			${MAKE} only_clean
 
 only_clean:
@@ -46,7 +39,6 @@ only_clean:
 			${RM} ${OBJS} ${OBJS_B} $(addprefix ${GNL_DIR}, ${OBJS_GNL})
 
 fclean:		only_clean
-			$(call printf_make, fclean)
 			${RM} ${NAME}
 
 re:			fclean all

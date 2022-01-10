@@ -109,7 +109,6 @@ t_cmd	**parsing(const char *line, char **env)
 	char	*new_line;
 	int		i;
 
-	// Yooyoo's part
 	if (parsing_error(line))
 		return (NULL);
 	new_line = generate_new_line(line, env);

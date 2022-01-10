@@ -81,6 +81,7 @@ void	ft_cd(t_cmd *cmd, char **env)
 			chdir(str);
 	}
 	if (cmd->args[0])
+	{
 		if (chdir (cmd->args[0]) == -1)
 		{
 			if (access(cmd->args[0], F_OK) == 0)
@@ -89,6 +90,7 @@ void	ft_cd(t_cmd *cmd, char **env)
 				print_err("cd", "%s: No such file or directory", cmd->args[0]);
 			cmd->exit = 1;
 		}
+	}
 	free(str);
 }
 
@@ -104,13 +106,12 @@ void	ft_exit(t_cmd *cmd)
 	}
 	while (cmd->args[0][i])
 	{
-		if (!(ft_isdigit(cmd->args[0][i])))
+		if (!(ft_isdigit(cmd->args[0][i++])))
 		{
 			printf("exit\n");
 			print_err("exit", "%s: numeric argument required", cmd->args[0]);
 			exit(255);
 		}
-		i++;
 	}
 	if (cmd->args[1])
 	{

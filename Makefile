@@ -6,19 +6,19 @@
 #    By: ytak <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 14:49:45 by ytak              #+#    #+#              #
-#    Updated: 2022/01/06 13:20:10 by ytak             ###   ########.fr        #
+#    Updated: 2022/01/10 15:01:06 by ytak             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC_DIR	= src/
 SRCS	= main.c \
 		  ft_utils.c \
+		  parsing/error/ft_chevrons.c \
+		  parsing/error/ft_pipes.c \
+		  parsing/error/ft_manage_err.c \
 		  parsing/ft_generate_new_line.c \
-		  parsing/ft_generate_nl_utils.c \
+		  parsing/ft_generate_new_line_utils.c \
 		  parsing/ft_parse_cmds.c \
-		  parsing/ft_parsing_err.c \
-		  parsing/ft_parse_chevrons.c \
-		  parsing/ft_parse_pipes.c \
 		  parsing/ft_parsing_utils.c \
 		  cmds/ft_cmds_echo_pwd.c \
 		  cmds/ft_signal.c\
@@ -34,7 +34,7 @@ OBJS	:= $(addprefix ${OBJ_DIR}, ${OBJS})
 
 NAME	= minishell
 
-CC		= gcc -g3 -fsanitize=address
+CC		= gcc #-g3 -fsanitize=address
 CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 
@@ -45,6 +45,7 @@ endef
 ${OBJ_DIR}%.o: ${SRC_DIR}%.c
 		mkdir -p ${OBJ_DIR}
 		mkdir -p ${OBJ_DIR}/parsing
+		mkdir -p ${OBJ_DIR}/parsing/error
 		mkdir -p ${OBJ_DIR}/cmds
 		${CC} ${CFLAGS} -c $< -o $@ -I /Users/$(USER)/homebrew/opt/readline/include
 

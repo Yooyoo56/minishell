@@ -16,12 +16,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
 # include <sys/stat.h>
-# include <term.h>
 # include <curses.h>
 # include <sys/errno.h>
 # include <signal.h>

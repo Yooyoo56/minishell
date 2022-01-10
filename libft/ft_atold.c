@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_atold.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+long double	ft_atold(const char *nptr)
 {
-	long	i;
-	long	nb;
-	long	sign;
+	int			i;
+	long double	nb;
+	long double	sign;
 
 	i = 0;
 	nb = 0;

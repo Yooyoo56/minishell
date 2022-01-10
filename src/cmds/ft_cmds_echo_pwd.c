@@ -100,25 +100,25 @@ void	ft_exit(t_cmd *cmd)
 
 	i = 0;
 	if (cmd->args[0] == NULL)
-	{
-		printf("exit\n");
-		exit(0);
-	}
+		exit(printf("exit\n") == 0);
 	while (cmd->args[0][i])
 	{
-		if (!(ft_isdigit(cmd->args[0][i++])))
+		if (!(ft_isdigit(cmd->args[0][i])) || (ft_strlen(cmd->args[0]) > 18
+			&& ft_atol(cmd->args[0]) <= 0))
 		{
 			printf("exit\n");
 			print_err("exit", "%s: numeric argument required", cmd->args[0]);
 			exit(255);
 		}
+		i++;
 	}
 	if (cmd->args[1])
 	{
 		printf("exit\n");
 		print_err("exit", "too many arguments", NULL);
-		exit(1);
+		cmd->exit = 1;
+		return ;
 	}
 	printf("exit\n");
-	exit(ft_atoi(cmd->args[0]));
+	exit(ft_atol(cmd->args[0]));
 }

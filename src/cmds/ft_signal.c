@@ -23,7 +23,10 @@ void	handler_sigquit(int sig, pid_t pid)
 			write(STDOUT_FILENO, "  \b\b", 4);
 		}
 		else
+		{
 			write(STDOUT_FILENO, "Quit: 3\n", 8);
+			g_exit_code = 131;
+		}
 	}
 }
 
@@ -43,15 +46,19 @@ void	interrupt_handler(int sig)
 			rl_on_new_line();
 			rl_replace_line("", 0);
 			rl_redisplay();
+			g_exit_code = 1;
 		}
 		else
+		{
 			write(STDOUT_FILENO, "  \n", 3);
+			g_exit_code = 130;
+		}
 	}
 	handler_sigquit(sig, pid);
 }
 
 /* SIGINT = ctrl + c
- * SIGQUIT = ctrl +  \
+ * SIGQUIT = ctrl + \
  * */
 void	cmd_signal(void)
 {

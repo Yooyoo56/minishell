@@ -109,7 +109,8 @@ static void	wait_children(t_cmd **cmds)
 		}
 		i++;
 	}
-	g_exit_code = cmds[0]->exit;
+	if (g_exit_code == 0)
+		g_exit_code = cmds[0]->exit;
 }
 
 void	manage_cmds(t_cmd **cmds, char ***env)

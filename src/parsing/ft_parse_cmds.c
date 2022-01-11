@@ -112,6 +112,7 @@ t_cmd	**parsing(const char *line, char **env)
 	if (parsing_error(line))
 		return (NULL);
 	new_line = generate_new_line(line, env);
+	g_exit_code = 0;
 	cmds_strs = ft_split(new_line, '|');
 	free(new_line);
 	cmds = NULL;

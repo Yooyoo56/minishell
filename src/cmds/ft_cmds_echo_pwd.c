@@ -57,41 +57,12 @@ void	ft_pwd(void)
 	getcwd(buf, sizeof(buf));
 	if (errno == ERANGE)
 	{
-		printf("pwd: error retrieving curremt directory");
+		printf("pwd: error retrieving current directory");
 		printf(":getcwd: cannot access parent directories");
 		printf(": No such file or directory\n");
 	}
 	else
 		printf("%s\n", buf);
-}
-
-void	ft_cd(t_cmd *cmd, char **env)
-{
-	char	*str;
-
-	str = ft_getenv("HOME", env);
-	if (cmd->nom && cmd->args[0] == NULL)
-	{
-		if (str[0] == '\0')
-		{
-			print_err("cd", "HOME not set", NULL);
-			cmd->exit = 1;
-		}
-		else
-			chdir(str);
-	}
-	if (cmd->args[0])
-	{
-		if (chdir (cmd->args[0]) == -1)
-		{
-			if (access(cmd->args[0], F_OK) == 0)
-				print_err("cd", "%s: Not a directory", cmd->args[0]);
-			else
-				print_err("cd", "%s: No such file or directory", cmd->args[0]);
-			cmd->exit = 1;
-		}
-	}
-	free(str);
 }
 
 void	ft_exit(t_cmd *cmd)

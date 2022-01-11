@@ -58,15 +58,3 @@ void	cmd_signal(void)
 	signal(SIGINT, interrupt_handler);
 	signal(SIGQUIT, interrupt_handler);
 }
-
-/* ctrl + d (NOT a signal)= EOF
- * not working :(
- * */
-void	cmd_eof(void)
-{
-	if (!EOF)
-	{
-		printf("exit\n");
-		exit(0);
-	}
-}

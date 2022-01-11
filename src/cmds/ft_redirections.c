@@ -26,7 +26,7 @@ static void	user_write_in_hdoc_file(int hdoc_fd, char *eof)
 			free(line);
 			line = readline("> ");
 			if (line == NULL)
-				break;
+				break ;
 		}
 	}
 	free(line);

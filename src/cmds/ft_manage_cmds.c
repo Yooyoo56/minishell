@@ -79,7 +79,7 @@ static void	exec_cmd_by_name(t_cmd *cmd, char ***env)
 	else if (cmd_name_is(cmd, "pwd"))
 		ft_pwd();
 	else if (cmd_name_is(cmd, "cd"))
-		ft_cd(cmd, *env);
+		ft_cd(cmd, env);
 	else if (cmd_name_is(cmd, "exit"))
 		ft_exit(cmd);
 	else if (cmd->nom)

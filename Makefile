@@ -6,7 +6,7 @@
 #    By: ytak <marvin@42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/13 14:49:45 by ytak              #+#    #+#              #
-#    Updated: 2022/01/10 19:54:17 by ytak             ###   ########.fr        #
+#    Updated: 2022/01/11 11:48:13 by ytak             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS	= main.c \
 		  parsing/ft_generate_new_line_utils.c \
 		  parsing/ft_parse_cmds.c \
 		  parsing/ft_parsing_utils.c \
+		  cmds/ft_cd.c \
 		  cmds/ft_cmds_echo_pwd.c \
 		  cmds/ft_signal.c\
 		  cmds/ft_cmds_utils.c \

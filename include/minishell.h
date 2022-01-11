@@ -90,16 +90,16 @@ int		is_operator(char c);
 t_op	get_op(char *line, int *op_nbr);
 
 /* cmds */
+// ft_cd.c
+void	ft_cd(t_cmd *cmd, char ***env);
 // ft_cmds_echo_pwd.c
 void	ft_echo(t_cmd *cmd);
 void	ft_pwd(void);
-void	ft_cd(t_cmd	*cmd, char **env);
 void	ft_exit(t_cmd *cmd);
 //ft_signal.c
 void	handler_sigquit(int sig, pid_t pid);
 void	interrupt_handler(int sig);
 void	cmd_signal(void);
-void	cmd_eof(void);
 // ft_cmds_utils.c
 void	non_built_in_command(t_cmd *cmd, char **env);
 int		cmd_name_is(t_cmd *cmd, char *str);

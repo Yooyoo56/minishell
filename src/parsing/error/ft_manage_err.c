@@ -12,6 +12,12 @@
 
 #include "../../../include/minishell.h"
 
+static int	print_quote_err(void)
+{
+	ft_putstr_fd("bash: syntax error `\'' `\"' \n", STDERR_FILENO);
+	return (1);
+}
+
 int	err_combine_quotes(const char *line)
 {
 	int	i;
@@ -25,13 +31,13 @@ int	err_combine_quotes(const char *line)
 			quote = line[i];
 			i++;
 			if (line[i] == '\0')
-				return (printf("bash: syntax error `\'' `\"' \n") > 0);
+				return (print_quote_err());
 			while (line[i])
 			{
 				if (line[i] == quote)
 					break ;
 				if (line[i + 1] == '\0')
-					return (printf("bash: syntax error `\'' `\"' \n") > 0);
+					return (print_quote_err());
 				i++;
 			}
 		}
@@ -50,7 +56,8 @@ int	err_slash(const char *line)
 	{
 		if (line[i] == '\\')
 		{
-			printf("bash: syntax error near unexpected token `\\' \n");
+			ft_putstr_fd("bash: syntax error near ", STDERR_FILENO);
+			ft_putstr_fd("unexpected token `\\'\n", STDERR_FILENO);
 			return (1);
 		}
 		i++;
@@ -67,7 +74,8 @@ int	err_semicolon(const char *line)
 	{
 		if (line[i] == ';')
 		{
-			printf("bash: syntax error near unexpected token `;' \n");
+			ft_putstr_fd("bash: syntax error near ", STDERR_FILENO);
+			ft_putstr_fd("unexpected token `;'\n", STDERR_FILENO);
 			return (1);
 		}
 		i++;
@@ -77,28 +85,13 @@ int	err_semicolon(const char *line)
 
 int	parsing_error(const char *line)
 {
-	if (ft_strlen(line) > 1000000000)
+	if (err_multiple_chevrons(line) || err_chevrons_reverse(line)
+		|| err_chevrons_space(line) || err_slash(line) || err_semicolon(line)
+		|| err_pipe_space_str(line) || err_pipes(line) || err_pipe_space(line)
+		|| err_combine_quotes(line))
 	{
-		printf("Error! Malloc error! Line too long\n");
+		g_exit_code = 258;
 		return (1);
 	}
-	if (err_multiple_chevrons(line))
-		return (1);
-	if (err_chevrons_reverse(line))
-		return (1);
-	if (err_pipes(line))
-		return (1);
-	if (err_slash(line))
-		return (1);
-	if (err_semicolon(line))
-		return (1);
-	if (err_chevrons_space(line))
-		return (1);
-	if (err_pipe_space(line))
-		return (1);
-	if (err_pipe_space_str(line))
-		return (1);
-	if (err_combine_quotes(line))
-		return (1);
 	return (0);
 }

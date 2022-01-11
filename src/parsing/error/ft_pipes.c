@@ -23,7 +23,8 @@ int	err_pipes(const char *line)
 		{
 			if (line[i + 1] == '|')
 			{
-				printf("bash: syntax error near unexpected token `||'\n");
+				ft_putstr_fd("bash: syntax error near ", STDERR_FILENO);
+				ft_putstr_fd("unexpected token `||'\n", STDERR_FILENO);
 				return (1);
 			}
 		}
@@ -46,7 +47,8 @@ int	err_pipe_space(const char *line)
 				i++;
 			if (line[i] == '|' || line[i] == '\0')
 			{
-				printf("bash: syntax error near unexpected token `|'\n");
+				ft_putstr_fd("bash: syntax error near ", STDERR_FILENO);
+				ft_putstr_fd("unexpected token `|'\n", STDERR_FILENO);
 				return (1);
 			}
 		}
@@ -64,7 +66,8 @@ int	err_pipe_space_str(const char *line)
 		i++;
 	if (line[i] == '|')
 	{
-		printf("bash: syntax error near unexpected token `|'\n");
+		ft_putstr_fd("bash: syntax error near ", STDERR_FILENO);
+		ft_putstr_fd("unexpected token `|'\n", STDERR_FILENO);
 		return (1);
 	}
 	return (0);

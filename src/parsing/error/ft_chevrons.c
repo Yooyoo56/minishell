@@ -25,7 +25,8 @@ int	err_multiple_chevrons(const char *line)
 			{
 				if (line[i + 2] == '<' || line[i + 2] == '>')
 				{
-					printf("bash:syntax error unexpected token `newline' \n");
+					ft_putstr_fd("bash: syntax error near ", STDERR_FILENO);
+					ft_putstr_fd("unexpected token `newline'\n", STDERR_FILENO);
 					return (1);
 				}
 			}
@@ -39,14 +40,15 @@ int	err_chevrons_reverse(const char *line)
 {
 	int	i;
 
-	i = 0;
-	while (line[i])
+	i = -1;
+	while (line[++i])
 	{
 		if (line[i] == '<')
 		{
 			if (line[i + 1] == '>')
 			{
-				printf("bash: syntax error near unexpected token `newline' \n");
+				ft_putstr_fd("bash: syntax error near ", STDERR_FILENO);
+				ft_putstr_fd("unexpected token `newline'\n", STDERR_FILENO);
 				return (1);
 			}
 		}
@@ -54,11 +56,11 @@ int	err_chevrons_reverse(const char *line)
 		{
 			if (line[i + 1] == '<')
 			{
-				printf("bash: syntax error near unexpected token `newline' \n");
+				ft_putstr_fd("bash: syntax error near ", STDERR_FILENO);
+				ft_putstr_fd("unexpected token `newline'\n", STDERR_FILENO);
 				return (1);
 			}
 		}
-		i++;
 	}
 	return (0);
 }
@@ -79,7 +81,8 @@ int	err_chevrons_space(const char *line)
 				i++;
 			if (is_operator(line[i]) || line[i] == '\0')
 			{
-				printf("bash: syntax error near unexpected token `newline' \n");
+				ft_putstr_fd("bash: syntax error near ", STDERR_FILENO);
+				ft_putstr_fd("unexpected token `newline'\n", STDERR_FILENO);
 				return (1);
 			}
 		}

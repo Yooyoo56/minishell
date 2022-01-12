@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 13:21:58 by whazami           #+#    #+#             */
-/*   Updated: 2022/01/03 14:04:12 by ytak             ###   ########.fr       */
+/*   Updated: 2022/01/12 13:02:36 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	fill_redirs_and_remove_them(t_cmd *cmd, char *s)
 		cmd->redirs[i]->file = (char *)ft_calloc(ft_strlen(s), sizeof(char));
 		while (s[opi + nb_ + ++j] && (ft_isalnum(s[opi + nb_ + j])
 				|| s[opi + nb_ + j] == '_' || s[opi + nb_ + j] == '-'
-				|| s[opi + nb_ + j] == '.' || s[opi + nb_ + j] == ','))
+				|| s[opi + nb_ + j] == '.' || s[opi + nb_ + j] == '/'))
 			cmd->redirs[i]->file[j - 1] = s[opi + nb_ + j];
 		j = (get_op(s, &opi) == HEREDOC || get_op(s, &opi) == APPEND);
 		erase_str(s, opi - j, 1 + j + nb_ + ft_strlen(cmd->redirs[i++]->file));

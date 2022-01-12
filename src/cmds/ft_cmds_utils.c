@@ -6,7 +6,7 @@
 /*   By: whazami <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 19:10:42 by whazami           #+#    #+#             */
-/*   Updated: 2021/12/17 22:26:59 by whazami          ###   ########.fr       */
+/*   Updated: 2022/01/12 12:42:01 by ytak             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	non_built_in_command(t_cmd *cmd, char **env)
 	cmd_with_path = get_cmd_with_path(cmd, env);
 	if (cmd_with_path == NULL)
 	{
-		if (cmd->nom[0] == '.' || cmd->nom[0] == '/')
+		if (cmd->nom[0] == '.' || ft_strchr(cmd->nom, '/'))
 			print_err(cmd->nom, "No such file or directory", NULL);
 		else
 			print_err(cmd->nom, "command not found", NULL);

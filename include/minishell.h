@@ -34,8 +34,6 @@
 # define SUP	30
 # define PIPE	31
 
-int	g_exit_code;
-
 typedef enum OP { NONE, IN, HEREDOC, OUT, APPEND }	t_op;
 
 typedef struct s_redir

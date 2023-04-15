@@ -12,6 +12,8 @@
 
 #include "../include/minishell.h"
 
+int	g_exit_code;
+
 void	free_2d_array(void **arr)
 {
 	int	i;

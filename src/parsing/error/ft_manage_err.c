@@ -12,6 +12,8 @@
 
 #include "../../../include/minishell.h"
 
+extern int	g_exit_code;
+
 static int	print_quote_err(void)
 {
 	ft_putstr_fd("bash: syntax error `\'' `\"' \n", STDERR_FILENO);

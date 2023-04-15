@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+extern int	g_exit_code;
+
 void	handler_sigquit(int sig, pid_t pid)
 {
 	if (sig == SIGQUIT)

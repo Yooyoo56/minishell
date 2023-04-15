@@ -12,6 +12,8 @@
 
 #include "../../include/minishell.h"
 
+extern int	g_exit_code;
+
 static void	fill_redirs_and_remove_them(t_cmd *cmd, char *s)
 {
 	int		opi;

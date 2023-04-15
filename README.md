@@ -4,6 +4,10 @@
 
 This repository contains the implementation of a simple Unix shell, called "Minishell", developed as part of the 42 Paris curriculum. The purpose of this project is to demonstrate a basic understanding of operating system concepts, such as processes, signals, input/output management, error handling, and command execution.
 
+<div align="center">
+  <img src="./demo.png" alt="demo">
+</div>
+
 ## Features
 
 * Basic command execution (e.g., ls, cat, grep, etc.)

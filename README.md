@@ -54,7 +54,7 @@ make
 
 ## Acknowledgments
 
-My project partner, [Yoojeong Tak](https://github.com/Yooyoo56), for their valuable collaboration, support, and ideas throughout the development of this project.
+My project partner, [Yoojeong Tak](https://github.com/Yooyoo56), for her valuable collaboration, support, and ideas throughout the development of this project.
 
 ## License
 
